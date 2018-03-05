@@ -10,3 +10,8 @@ The objective of this project is to manage state with Redux, so we will focus mo
 
 Instead of using the helpful create-react-app we are using the ARC React boilerplate tool: https://github.com/diegohaz/arc/wiki/Setup
 
+## Instalation
+
+1. git clone the project
+2. npm install
+3. npm run dev
