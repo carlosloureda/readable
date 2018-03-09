@@ -1,5 +1,7 @@
 import React from 'react'
 import { Post } from 'components'
+import { votePost } from '../../../actions/index'
+import { connect } from 'react-redux'
 
 class PostContainer extends React.Component {
 
@@ -7,13 +9,13 @@ class PostContainer extends React.Component {
     super(props)
   }
 
-  votePost = (postId, option) => {
-    if(option === 'upVote') {
-      console.log("up vote post");
-    } else if(option === 'downVote') {
-      console.log("down vote post");
-    }
-  }
+  // votePost = (postId, option) => {
+  //   if(option === 'upVote') {
+  //     console.log("up vote post");
+  //   } else if(option === 'downVote') {
+  //     console.log("down vote post");
+  //   }
+  // }
 
   removePost = () => {
     console.log("delete post");
@@ -21,7 +23,7 @@ class PostContainer extends React.Component {
 
   render() {
     const handlers = {
-      votePost: this.votePost,
+      votePost: this.props.votePost,
       removePost: this.removePost
     }
     return (
@@ -34,4 +36,14 @@ class PostContainer extends React.Component {
   }
 }
 
-export default PostContainer
+function mapStateToProps(state) {
+  return {};
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    votePost: (postId, option) => dispatch(votePost(postId, option))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostContainer)

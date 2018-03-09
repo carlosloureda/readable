@@ -1,16 +1,17 @@
 import React from 'react'
 
-const CategoryFetcher = () => {
+const CategoryFetcher = ({ categories, selectedCategory, onCategorySelected }) => {
   return (
     <select
       name="category"
-      value="value"
-      onChange={() => {}}
+      value={selectedCategory ? selectedCategory : 'all'}
+      onChange={(e) => onCategorySelected(e)}
     >
-    <option value="value1">Value1</option>
-    <option value="value2">Value 2</option>
-    <option value="value3">Value 3</option>
-  </select>
+      <option value='all'>All</option>
+      {categories && categories.map(category =>
+        <option key={category.name} value={category.name}>{category.name}</option>
+      )}
+    </select>
   )
 }
 

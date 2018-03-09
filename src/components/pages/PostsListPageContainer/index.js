@@ -1,43 +1,56 @@
 // https://github.com/diegohaz/arc/wiki/Atomic-Design
 import React from 'react'
+import { connect } from 'react-redux'
+import {
+  fetchPosts
+} from '../../../actions/index'
 
 import {
   PostsListPage
 } from 'components'
 
-const mockedPosts = [
-  {
-    id: '8xf0y6ziyjabvozdd253nd',
-    timestamp: 1467166872634,
-    title: 'Udacity is the best place to learn React',
-    body: 'Everyone says so after all.',
-    author: 'thingtwo',
-    category: 'react',
-    voteScore: 6,
-    deleted: false,
-    commentCount: 2
-  },
-  {
-    id: '6ni6ok3ym7mf1p33lnez',
-    timestamp: 1468479767190,
-    title: 'Learn Redux in 10 minutes!',
-    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
-    author: 'thingone',
-    category: 'redux',
-    voteScore: -5,
-    deleted: false,
-    commentCount: 0
-  }
-]
-
 class PostsListPageContainer extends React.Component {
+  constructor(props) {
+    super(props)
+    // this.onSortChange = this.onSortChange.bind(this)
+  }
+  componentDidMount() {
+    const { posts } = this.props;
+    console.log("props: ", this.props);
+    const category = this.props.match.params.category;
+    this.props.fetchPosts(category, 'date').then(() => {
+        console.log("fetching posts finished: ", this.props.posts)
+    });
+    //TODO: select category in state ...
+  }
   render() {
+    let posts = this.props.posts;
+    const category = this.props.match.params.category;
+    if (category) {
+      posts = this.props.postsByCategory[category].items.map(postId =>
+        this.props.posts[postId]
+      )
+    }
     return (
       <PostsListPage
-        posts={mockedPosts}
+        posts={posts}
       ></PostsListPage>
     )
   }
 }
 
-export default PostsListPageContainer
+function mapStateToProps(state) {
+  console.log("STATE: ", state);
+  return {
+      posts: state.posts.entities.posts,
+      postsByCategory: state.posts.postsByCategory,
+  };
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    fetchPosts: (data, sortedBy) => dispatch(fetchPosts(data, sortedBy)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostsListPageContainer)
