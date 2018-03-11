@@ -1,10 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
+import { ConfirmModal } from 'components'
+
+const deleteModal = () => {
+    console.log("deleteModal clicked");
+}
 
 const Post = withRouter(({post, layout, handlers, history}) => {
     console.log("layout is: ", layout);
     console.log("handlers: ", handlers);
+
+    const title = "Do you want to delete this post?";
+    const body = "This action can't be undone. Deleting a post also deletes its comments";
+    const primaryButtonText = "Delete";
+    const secondaryButtonText = "Cancel";
     //TODO: Think on how we can put this on a constat and export it
     if (layout && layout == "LIST_ITEM") {
         return (<li key={post.id}>
@@ -23,8 +33,13 @@ const Post = withRouter(({post, layout, handlers, history}) => {
             <hr/>
             {/* TODO: Maybe we can use names instead of the url */}
             <button onClick={() => history.push(`/post/edit/${post.id}`)}>Edit</button>
-            {/* <button onClick={() => removePost(post.id)}>Delete</button> */}
-            <button onClick={() => handlers.removePost(post.id)}>Delete</button>
+            <ConfirmModal
+                title = {title}
+                body = {body}
+                primaryButtonText = {primaryButtonText}
+                secondaryButtonText = {secondaryButtonText}
+                onPrimaryAction={handlers.removePost}
+            />
         </li>)
     }
     return (
@@ -42,7 +57,13 @@ const Post = withRouter(({post, layout, handlers, history}) => {
             <hr/>
             {/* TODO: Maybe we can use names instead of the url */}
             <button onClick={() => history.push(`/post/edit/${post.id}`)}>Edit</button>
-            <button onClick={() => handlers.removePost(post.id)}>Delete</button>
+            <ConfirmModal
+                title = {title}
+                body = {body}
+                primaryButtonText = {primaryButtonText}
+                secondaryButtonText = {secondaryButtonText}
+                onPrimaryAction={handlers.removePost}
+            />
         </div>
     )
 })

@@ -1,7 +1,8 @@
 import React from 'react'
 import { Post } from 'components'
-import { votePost } from '../../../actions/index'
+import { votePost, removePost, fetchPost, fetchPosts } from '../../../actions/index'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 class PostContainer extends React.Component {
 
@@ -9,16 +10,11 @@ class PostContainer extends React.Component {
     super(props)
   }
 
-  // votePost = (postId, option) => {
-  //   if(option === 'upVote') {
-  //     console.log("up vote post");
-  //   } else if(option === 'downVote') {
-  //     console.log("down vote post");
-  //   }
-  // }
-
-  removePost = () => {
-    console.log("delete post");
+  removePost = (callback) => {
+    this.props.removePost(this.props.post.id).then(() => {
+      callback(); // closing the modal
+      this.props.history.push(`/`);
+    });
   }
 
   render() {
@@ -37,13 +33,17 @@ class PostContainer extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+  }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    votePost: (postId, option) => dispatch(votePost(postId, option))
+    votePost: (postId, option) => dispatch(votePost(postId, option)),
+    removePost: (postId) => dispatch(removePost(postId)),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostContainer)
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(PostContainer)
+)

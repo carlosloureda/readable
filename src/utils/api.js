@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch'
 
 const HEADERS = {
-    'Authorization': 'token-usuario-super-especial-xvx7',
+    'Authorization': 'token-usuario-super-especial-xvx19',
     'Accept': 'application/json',
     'Content-Type': 'application/json'
 };
@@ -50,6 +50,7 @@ export function votePostApi(postId, option) {
  * @description GET /posts/:id. Get the details of a single post.
  */
 export function getPostApi(postId) {
+    console.log("Holas");
     return fetch(
         `${url}/posts/${postId}`, { method: 'GET', headers: HEADERS }
     )

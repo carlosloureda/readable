@@ -2,33 +2,12 @@
 import React from 'react'
 
 import { AddPostPage } from 'components'
+import { connect } from 'react-redux'
+import { requestCategories, addPost, fetchPost, editPost } from '../../../actions/index'
+import { withRouter } from 'react-router-dom'
+import { getUUIC } from '../../../utils/api'
 
-const mockedPosts = {
-  '8xf0y6ziyjabvozdd253nd':  {
-      id: '8xf0y6ziyjabvozdd253nd',
-      timestamp: 1467166872634,
-      title: 'Udacity is the best place to learn React',
-      body: 'Everyone says so after all.',
-      author: 'thingtwo',
-      category: 'react',
-      voteScore: 6,
-      deleted: false,
-      commentCount: 2
-    },
-  '6ni6ok3ym7mf1p33lnez':  {
-      id: '6ni6ok3ym7mf1p33lnez',
-      timestamp: 1468479767190,
-      title: 'Learn Redux in 10 minutes!',
-      body: 'Just kidding. It takes more than 10 minutes to learn technology.',
-      author: 'thingone',
-      category: 'redux',
-      voteScore: -5,
-      deleted: false,
-      commentCount: 0
-    }
-}
-
-class PostsListPage extends React.Component {
+class AddPostPageContainer extends React.Component {
   constructor (props) {
     super(props)
 
@@ -39,28 +18,42 @@ class PostsListPage extends React.Component {
         title: '',
         body: '',
         author: '',
-        category: 'react' //TODO: Add a proper default
+        category: ''
       }
     }
-    const post = mockedPosts[this.props.match.params.postId];
-    if (post) {
-      this.state = {
-        post: {
-          id: post.id,
-          timestamp: post.timestamp,
-          title: post.title,
-          body: post.body,
-          author: post.author,
-          category: post.category
-        }
-      }
+  }
+
+  componentWillMount() {
+    this.props.requestCategories().then(() => {
+        this.setState({
+          post: {
+            ...this.state.post,
+            category: this.props.categories[0].name
+          }
+        });
+    });
+
+    if (this.props.match && this.props.match.params.postId) {
+      const postId = this.props.match.params.postId;
+      this.props.fetchPost(postId).then(() => {
+        const post = this.props.posts[postId];
+        this.setState({
+          ...this.state,
+          post:  {
+            id: post.id,
+            timestamp: post.timestamp,
+            title: post.title,
+            body: post.body,
+            author: post.author,
+            category: post.category
+          }
+        })
+      });
     }
-    console.log("state: ", this.state);
   }
 
   handleChange = (event) => {
     const target = event.target;
-    // const value = target.type === 'select-one' ? target.checked : target.value;
     this.setState({
       post: {
         ...this.state.post,
@@ -69,17 +62,67 @@ class PostsListPage extends React.Component {
     });
   }
 
+  onAddPost = () => {
+    const post = {
+      id: getUUIC(),
+      title: this.state.post.title,
+      body: this.state.post.body,
+      author: this.state.post.author,
+      category: this.state.post.category,
+      timestamp: Date.now()
+    }
+    //TODO: validate form, show errors, show loading
+    this.props.addPost(post).then(() =>  {
+      this.props.history.push(`/post/${post.id}`);
+    });
+  }
+
+  onEditPost = () => {
+    //TODO: validate form, show errors, show loading
+    const params = {
+      title: this.state.post.title,
+      body: this.state.post.body,
+      author: this.state.post.author,
+      category: this.state.post.category
+    }
+    //TODO: validate form, show errors, show loading
+    this.props.editPost(this.state.post.id, params).then(() =>  {
+      this.props.history.push(`/post/${this.state.post.id}`);
+    });
+  }
+
   render() {
     const handlers = {
-      handleChange: this.handleChange
+      handleChange: this.handleChange,
+      onAddPost: this.onAddPost,
+      onEditPost: this.onEditPost
     }
     return (
       <AddPostPage
         post = {this.state.post}
+        categories = {this.props.categories}
         handlers = {handlers}
       ></AddPostPage>
     )
   }
 }
 
-export default PostsListPage
+function mapStateToProps(state) {
+  return {
+      categories: state.posts.categories,
+      posts: state.posts.entities.posts
+  };
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    requestCategories: (data, sortedBy) => dispatch(requestCategories()),
+    addPost: (post) => dispatch(addPost(post)),
+    editPost: (postId, params) => dispatch(editPost(postId, params)),
+    fetchPost: (postId) => dispatch(fetchPost(postId)),
+  }
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(AddPostPageContainer)
+)

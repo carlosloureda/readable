@@ -5,7 +5,7 @@ import {
   PageTemplate, Header, Footer,
 } from 'components'
 
-const Hero = ({post, handlers}) => {
+const Hero = ({post, categories, handlers}) => {
   const title = (post && post.id) ? 'Edit Post Page' : 'Add Post Page';
   const buttonName = (post && post.id) ? 'Save Post' : 'Add Post';
   return (
@@ -21,7 +21,7 @@ const Hero = ({post, handlers}) => {
       </div>
       <div>
         <label>Body</label>
-        <input
+        <textarea
           name="body"
           value={post.body}
           onChange={ handlers.handleChange }
@@ -34,9 +34,9 @@ const Hero = ({post, handlers}) => {
           value={post.category}
           onChange={ handlers.handleChange }
         >
-          <option value="react">Reactjs</option>
-          <option value="redux">Redux</option>
-          <option value="udacity">Udacity</option>
+          {categories && categories.map(category =>
+            <option key={category.name} value={category.name}>{category.name}</option>
+          )}
         </select>
       </div>
       <div>
@@ -47,18 +47,17 @@ const Hero = ({post, handlers}) => {
           onChange={ handlers.handleChange }
         />
       </div>
-      <button onClick={(e) => {}}>{buttonName}</button>
+        {post && post.id && <button onClick={ handlers.onEditPost }>Save Post</button>}
+        {(!post || !post.id) && <button onClick={ handlers.onAddPost }>Add Post</button>}
     </div>
   )
 }
 
-const AddPostPage = ({post, handlers}) => {
-  // console.log("post: ", post);
-  // console.log("handlers: ", handlers);
+const AddPostPage = ({post, categories, handlers}) => {
   return (
     <PageTemplate
       header={<Header />}
-      hero={<Hero post={post} handlers={handlers}/>}
+      hero={<Hero post={post} categories={categories} handlers={handlers}/>}
       footer={<Footer />}
       >
     </PageTemplate>

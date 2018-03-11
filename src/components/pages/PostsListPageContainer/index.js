@@ -13,13 +13,19 @@ class PostsListPageContainer extends React.Component {
   constructor(props) {
     super(props)
     // this.onSortChange = this.onSortChange.bind(this)
+    this.state = {
+      loading: true
+    }
   }
-  componentDidMount() {
+  componentWillMount() {
     const { posts } = this.props;
     console.log("props: ", this.props);
     const category = this.props.match.params.category;
     this.props.fetchPosts(category, 'date').then(() => {
         console.log("fetching posts finished: ", this.props.posts)
+        this.setState({
+          loading: false
+        })
     });
     //TODO: select category in state ...
   }
@@ -31,11 +37,17 @@ class PostsListPageContainer extends React.Component {
         this.props.posts[postId]
       )
     }
-    return (
-      <PostsListPage
-        posts={posts}
-      ></PostsListPage>
-    )
+    if (this.state.loading) {
+      //TODO: Spinner of whatever
+      return (<h1>loading posts</h1>)
+    }
+    else {
+      return (
+        <PostsListPage
+          posts={posts}
+        ></PostsListPage>
+      )
+    }
   }
 }
 
