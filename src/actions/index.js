@@ -2,7 +2,8 @@
 import fetch from 'cross-fetch'
 import {
     fetchPostsApi, votePostApi, fetchAllCategories, addPostApi,
-    deletePost, getPostApi, updatePost, getPostCommentsApi
+    deletePost, getPostApi, updatePost, getPostCommentsApi,
+    addCommentApi, voteCommentApi, deleteComment, updateComment
 } from '../utils/api';
 
 /*******************************************************************************
@@ -196,7 +197,6 @@ export function editPost(id, payload) {
  ******************************************************************************/
 export const FETCH_COMMENTS = 'FETCH_COMMENTS'
 function fetchCommentsAction(comments) {
-    console.log("¿¿¿¿¿¿¿¿¿¿¿ COMMMMMENTSSS: ", comments);
     return {
         type: FETCH_COMMENTS,
         comments: comments,
@@ -207,8 +207,90 @@ export function fetchComments(postId) {
     return function(dispatch) {
         return getPostCommentsApi(postId)
         .then(data =>{
-            console.log("fetchComments Data is : ",data);
             dispatch(fetchCommentsAction(data));}
+        )
+    }
+}
+
+/*******************************************************************************
+ *                              ADD COMMENT
+ ******************************************************************************/
+export const ADD_COMMENT = 'ADD_COMMENT'
+function addCommentAction(comment) {
+    return {
+        type: ADD_COMMENT,
+        comment: comment,
+        receivedAt: Date.now()
+    }
+}
+export function addComment(comment) {
+    return function(dispatch) {
+        return addCommentApi(comment)
+        .then(data =>{
+            dispatch(addCommentAction(data));}
+        )
+    }
+}
+
+/*******************************************************************************
+ *                              VOTE COMMENT
+ ******************************************************************************/
+export const VOTE_COMMENT = 'VOTE_COMMENT'
+function voteCommentAction(commentId, option) {
+    return {
+        type: VOTE_COMMENT,
+        commentId: commentId,
+        option: option,
+        receivedAt: Date.now()
+    }
+}
+
+export function voteComment(commentId, option) {
+    return function(dispatch) {
+        return voteCommentApi(commentId, option)
+        .then(data =>{
+            dispatch(voteCommentAction(commentId, option))}
+        )
+    }
+}
+
+/*******************************************************************************
+ *                              DELETE COMMENT
+ ******************************************************************************/
+export const REMOVE_COMMENT = 'REMOVE_COMMENT'
+function removeCommentAction(commentId) {
+    return {
+        type: REMOVE_COMMENT,
+        commentId: commentId,
+        receivedAt: Date.now()
+    }
+}
+
+export function removeComment(commentId) {
+    return function(dispatch) {
+        return deleteComment(commentId)
+        .then(data =>{
+            dispatch(removeCommentAction(commentId))}
+        )
+    }
+}
+
+/*******************************************************************************
+ *                              EDIT COMMENT
+ ******************************************************************************/
+export const EDIT_COMMENT = 'EDIT_COMMENT'
+function editCommentAction(comment) {
+    return {
+        type: EDIT_COMMENT,
+        comment: comment,
+        receivedAt: Date.now()
+    }
+}
+export function editComment(id, payload) {
+    return function(dispatch) {
+        return updateComment(id, payload)
+        .then(data =>{
+            dispatch(editCommentAction(data))}
         )
     }
 }

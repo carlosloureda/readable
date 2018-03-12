@@ -4,7 +4,7 @@ import React from 'react'
 import {
   PageTemplate, Header, Footer,
   PostSortSelector, CategoryFetcher, AddPostButton,
-  PostList, PostContainer, CommentsList, CommentForm
+  PostList, PostContainer, CommentsList, CommentFormContainer
 } from 'components'
 
 const Hero = ({post, layout, comments, showAddComment, handlers}) => {
@@ -27,10 +27,12 @@ const Hero = ({post, layout, comments, showAddComment, handlers}) => {
         :
         <div>
             <button onClick={handlers.onToggleCommentForm}>Cancel</button>
-            <button onClick={()=>{}}>Save comment</button>
-          </div>
+        </div>
       }
-      {showAddComment ? <CommentForm></CommentForm>: null}
+      {showAddComment ? <CommentFormContainer
+                          parentId={post.id}
+                          addCommentCallback={handlers.onToggleCommentForm}
+                        ></CommentFormContainer>: null}
 
       {/* Comments */}
       <CommentsList

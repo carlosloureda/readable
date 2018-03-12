@@ -173,10 +173,7 @@ export function addCommentApi(body) {
         body: body
     })
     .then(
-        response => {
-            // console.log("response: ", response);
-            response.json()
-        },
+        response => response.json(),
         error => console.error('[addCommentApi] | An error occured.', error)
     )
 }

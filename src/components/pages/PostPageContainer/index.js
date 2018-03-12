@@ -1,9 +1,7 @@
 // https://github.com/diegohaz/arc/wiki/Atomic-Design
 import React from 'react'
 import { connect } from 'react-redux'
-
 import { fetchPost, fetchComments } from '../../../actions/index'
-
 import {
   PostPage
 } from 'components'

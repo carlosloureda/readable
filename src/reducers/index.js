@@ -9,7 +9,11 @@ import {
     REMOVE_POST,
     FETCH_POST,
     EDIT_POST,
-    FETCH_COMMENTS
+    FETCH_COMMENTS,
+    ADD_COMMENT,
+    VOTE_COMMENT,
+    REMOVE_COMMENT,
+    EDIT_COMMENT
 } from '../actions/index'
 
 // const defaultPostState = {
@@ -331,21 +335,76 @@ function posts(state = defaultPostState, action) {
                 lastUpdated: action.receivedAt
             }
         case FETCH_COMMENTS:
-            const previousComments = state.entities.comments;
-            const comments =  action.comments.reduce((acc, comment) => {
-                return {
-                    ...acc,
-                    ...{[comment.id] : comment}
-                }
-            }, previousComments);
             return {
                 ...state,
                 entities: {
                     ...state.entities,
-                    comments: comments
+                    comments: action.comments.reduce((acc, comment) => {
+                        return {
+                            ...acc,
+                            ...{[comment.id] : comment}
+                        }
+                    }, state.entities.comments)
                 },
                 lastUpdated: action.receivedAt
             }
+        case ADD_COMMENT:
+            return {
+                ...state,
+                entities: {
+                    ...state.entities,
+                    comments: {
+                        ...state.entities.comments,
+                        [action.comment.id]: action.comment
+                    }
+                },
+                lastUpdated: action.receivedAt
+            }
+        case VOTE_COMMENT:
+            let _voteScore = state.entities.comments[action.commentId].voteScore;
+            _voteScore += (action.option == "upVote") ? 1 : -1;
+            return {
+                ...state,
+                entities: {
+                    ...state.entities,
+                    comments: {
+                        ...state.entities.comments,
+                        [action.commentId]: {
+                            ...state.entities.comments[action.commentId],
+                            voteScore: _voteScore
+                        }
+                    }
+                },
+                lastUpdated: action.receivedAt,
+            }
+        case REMOVE_COMMENT:
+            const commentToBeRemoved = state.entities.comments[action.commentId];
+            let _newComments = state.entities.comments;
+            delete _newComments[commentToBeRemoved.id];
+
+            return {
+                ...state,
+                entities: {
+                    ...state.entities,
+                    comments: _newComments
+                },
+                lastUpdated: action.receivedAt
+            }
+
+        case EDIT_COMMENT:
+            return {
+                ...state,
+                entities: {
+                    ...state.entities,
+                    comments: {
+                        ...state.entities.comments,
+                        [action.comment.id]: action.comment
+                    }
+                },
+                lastUpdated: action.receivedAt
+            }
+
+
     }
     return state;
 }
