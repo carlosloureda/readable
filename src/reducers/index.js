@@ -8,7 +8,8 @@ import {
     ADD_POST,
     REMOVE_POST,
     FETCH_POST,
-    EDIT_POST
+    EDIT_POST,
+    FETCH_COMMENTS
 } from '../actions/index'
 
 // const defaultPostState = {
@@ -77,6 +78,9 @@ const defaultPostState = {
     entities: {
         posts:{
 
+        },
+        comments: {
+
         }
     },
     postsByCategory:  {
@@ -140,6 +144,7 @@ function posts(state = defaultPostState, action) {
                 isFetching: false,
                 didInvalidate: false,
                 entities: {
+                    ...state.entities,
                     posts:  _posts
                 },
                 postsByCategory: _postsByCategory,
@@ -157,6 +162,7 @@ function posts(state = defaultPostState, action) {
             return {
                 ...state,
                 entities: {
+                    ...state.entities,
                     posts: {
                         ...state.entities.posts,
                         [postId]: newItem,
@@ -238,12 +244,19 @@ function posts(state = defaultPostState, action) {
                 lastUpdated: action.receivedAt
             }
         case FETCH_POST:
-            state.entities.posts[action.post.id] = action.post;
-            console.log("state is: ", state);
+            // state.entities.posts[action.post.id] = action.post;
+            // console.log("state is: ", state);
             //TODO: should update also the postsByCategory
             return {
                 ...state,
-                items: state.entities.posts,
+                entities: {
+                    ...state.entities,
+                    posts: {
+                        ...state.entities.posts,
+                        [action.post.id]: action.post
+                    }
+                },
+                // items: state.entities.posts,
                 lastUpdated: action.receivedAt,
                 selectedPostId: action.post.id
             }
@@ -267,7 +280,7 @@ function posts(state = defaultPostState, action) {
             // }
 
             _postsByCategory = state.postsByCategory;
-            if (state.entities.posts[action.post.id].category != action.post.category) {
+            if (state.entities.posts[action.post.id] && state.entities.posts[action.post.id].category != action.post.category) {
                 Object.keys(_postsByCategory).forEach(category => {
                     _postsByCategory[category].items.forEach((postId, index) => {
                         if (postId == action.post.id) {
@@ -317,8 +330,23 @@ function posts(state = defaultPostState, action) {
                 // },
                 lastUpdated: action.receivedAt
             }
+        case FETCH_COMMENTS:
+            const previousComments = state.entities.comments;
+            const comments =  action.comments.reduce((acc, comment) => {
+                return {
+                    ...acc,
+                    ...{[comment.id] : comment}
+                }
+            }, previousComments);
+            return {
+                ...state,
+                entities: {
+                    ...state.entities,
+                    comments: comments
+                },
+                lastUpdated: action.receivedAt
+            }
     }
-
     return state;
 }
 

@@ -2,7 +2,7 @@
 import fetch from 'cross-fetch'
 import {
     fetchPostsApi, votePostApi, fetchAllCategories, addPostApi,
-    deletePost, getPostApi, updatePost
+    deletePost, getPostApi, updatePost, getPostCommentsApi
 } from '../utils/api';
 
 /*******************************************************************************
@@ -187,6 +187,28 @@ export function editPost(id, payload) {
         .then(data =>{
             console.log("Data is : ",data);
             dispatch(editPostAction(data));}
+        )
+    }
+}
+
+/*******************************************************************************
+ *                              FETCH COMMENTS
+ ******************************************************************************/
+export const FETCH_COMMENTS = 'FETCH_COMMENTS'
+function fetchCommentsAction(comments) {
+    console.log("¿¿¿¿¿¿¿¿¿¿¿ COMMMMMENTSSS: ", comments);
+    return {
+        type: FETCH_COMMENTS,
+        comments: comments,
+        receivedAt: Date.now()
+    }
+}
+export function fetchComments(postId) {
+    return function(dispatch) {
+        return getPostCommentsApi(postId)
+        .then(data =>{
+            console.log("fetchComments Data is : ",data);
+            dispatch(fetchCommentsAction(data));}
         )
     }
 }

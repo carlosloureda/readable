@@ -2,29 +2,38 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { fetchPost } from '../../../actions/index'
+import { fetchPost, fetchComments } from '../../../actions/index'
 
 import {
   PostPage
 } from 'components'
 
 class PostPageContainer extends React.Component {
-
+  state = {
+    showAddComment: false,
+    fetchingPost: true,
+    fetchingComments: true
+  }
   constructor (props) {
     super(props)
-    this.state = {
-      showAddComment: false,
-      loading: true
-    }
+
   }
   componentWillMount() {
     const postId = this.props.match.params.postId;
     this.props.fetchPost(postId).then(() => {
       this.setState({
         ...this.state,
-        loading: false
+        fetchingPost: false
       })
     });
+    this.props.fetchComments(postId).then(() => {
+      this.setState({
+        ...this.state,
+        fetchingComments: false
+      })
+    });
+
+    //TODO:fetch comments for this post
   }
 
   onToggleCommentForm = () => {
@@ -38,30 +47,42 @@ class PostPageContainer extends React.Component {
     const handlers = {
       onToggleCommentForm: this.onToggleCommentForm
     }
-    if (this.state.loading) {
-      return (<p>loading in post page container</p>)
-    } else {
+    const comments = [];
+    if (this.props.comments) {
+      Object.keys(this.props.comments).forEach(commentId => {
+        if (this.props.comments[commentId].parentId == postId ) {
+          comments.push(this.props.comments[commentId])
+        }
+      });
+    }
+
+    if (!this.state.fetchingComments && !this.state.fetchingPost) {
       const post = this.props.posts[postId];
       return (
         <PostPage
           post={post}
+          comments={comments}
           showAddComment={this.state.showAddComment}
           handlers={handlers}
         ></PostPage>
       )
+    } else {
+      return (<p>loading in post page container</p>)
     }
   }
 }
 
 function mapStateToProps(state) {
   return {
-    posts: state.posts.entities.posts
+    posts: state.posts.entities.posts,
+    comments: state.posts.entities.comments
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     fetchPost: (postId) => dispatch(fetchPost(postId)),
+    fetchComments: (postId) => dispatch(fetchComments(postId)),
   }
 }
 

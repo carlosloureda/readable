@@ -7,7 +7,7 @@ import {
   PostList, PostContainer, CommentsList, CommentForm
 } from 'components'
 
-const Hero = ({post, layout, showAddComment, handlers}) => {
+const Hero = ({post, layout, comments, showAddComment, handlers}) => {
   console.log("on HERO, handlers: ", handlers);
   return (
     <div>
@@ -33,12 +33,14 @@ const Hero = ({post, layout, showAddComment, handlers}) => {
       {showAddComment ? <CommentForm></CommentForm>: null}
 
       {/* Comments */}
-      <CommentsList></CommentsList>
+      <CommentsList
+        comments={comments}
+      ></CommentsList>
     </div>
   )
 }
 
-const PostPage = ({post, layout, showAddComment, handlers}) => {
+const PostPage = ({post, layout, comments, showAddComment, handlers}) => {
   return (
     <PageTemplate
       header={<Header />}
@@ -46,6 +48,7 @@ const PostPage = ({post, layout, showAddComment, handlers}) => {
         <Hero
           post={post}
           layout={layout}
+          comments={comments}
           showAddComment={showAddComment}
           handlers={handlers}
         />

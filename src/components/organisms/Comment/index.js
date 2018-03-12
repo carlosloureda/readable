@@ -13,7 +13,7 @@ const Comment = ({comment, handlers, layout}) => {
       <div>Author: {comment.author}</div>
       <div>Vote Score: {comment.voteScore}</div>
       {/* <div>timestamp: {DateUtils.parseDatetime(comment.timestamp)}</div> */}
-      <div>timestamp: comment.timestamp</div>
+      <div>timestamp: {comment.timestamp}</div>
       <hr/>
       {/* <button onClick={() => history.push(`/comment/edit/${comment.id}`)}>Edit</button> */}
       <button onClick={() => {}}>Edit</button>
