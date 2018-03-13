@@ -31,7 +31,7 @@ class PostsListPageContainer extends React.Component {
     let posts = this.props.posts;
     const category = this.props.match.params.category;
     if (category) {
-      posts = this.props.postsByCategory[category].items.map(postId =>
+      posts = this.props.postsByCategory[category] && this.props.postsByCategory[category].items.map(postId =>
         this.props.posts[postId]
       )
     }
