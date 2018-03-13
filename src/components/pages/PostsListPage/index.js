@@ -3,7 +3,7 @@ import React from 'react'
 
 import {
   PageTemplate, Header, Footer,
-  PostSortSelector, CategoryFetcherContainer, AddPostButton,
+  PostsSortSelectorContainer, CategoryFetcherContainer, AddPostButton,
   PostList
 } from 'components'
 import { withRouter } from 'react-router-dom'
@@ -12,7 +12,7 @@ const Hero = withRouter(({posts, history}) => {
   return (
     <div>
       <h1>PostsListPage</h1>
-      <PostSortSelector></PostSortSelector>
+      <PostsSortSelectorContainer></PostsSortSelectorContainer>
       {/* TODO: Maybe best approach is to fetch categories in CategoryFetcherContainer */}
       <CategoryFetcherContainer></CategoryFetcherContainer>
       <PostList posts={ posts }></PostList>

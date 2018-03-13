@@ -13,8 +13,10 @@ import {
     ADD_COMMENT,
     VOTE_COMMENT,
     REMOVE_COMMENT,
-    EDIT_COMMENT
+    EDIT_COMMENT,
+    SORT_POSTS
 } from '../actions/index'
+import { sortPostsHelper, objectToArray, arrayToObject } from '../utils/utils';
 
 // const defaultPostState = {
 //     selectedCategory: null,
@@ -403,8 +405,18 @@ function posts(state = defaultPostState, action) {
                 },
                 lastUpdated: action.receivedAt
             }
-
-
+        case SORT_POSTS:
+        console.warn("we are going to sort things by ", action.sortedBy);
+            const arrayPosts = objectToArray(state.entities.posts);
+            const sortedPosts = sortPostsHelper(arrayPosts, action.sortedBy)
+            const sortedPostsObj = arrayToObject(sortedPosts)
+            return {
+                ...state,
+                entities: {
+                    ...state.entities,
+                    posts: sortedPostsObj
+                }
+            }
     }
     return state;
 }

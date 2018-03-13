@@ -5,6 +5,7 @@ import {
     deletePost, getPostApi, updatePost, getPostCommentsApi,
     addCommentApi, voteCommentApi, deleteComment, updateComment
 } from '../utils/api';
+import { sortPostsHelper } from '../utils/utils';
 
 /*******************************************************************************
  *                              FECTCH POSTS
@@ -39,6 +40,9 @@ export function fetchPosts(category, sortedBy) {
         return fetchPostsApi(category)
         .then(data =>
             {
+                // dispatch(sortPosts(data, sortedBy));
+                // console.log("eoeoeooe: ", sortedBy);
+                data = sortPostsHelper(data, sortedBy);
                 return dispatch(receivePosts(category,  data));
             }
         )
@@ -292,5 +296,17 @@ export function editComment(id, payload) {
         .then(data =>{
             dispatch(editCommentAction(data))}
         )
+    }
+}
+
+/*******************************************************************************
+ *                              SORT POSTS
+ ******************************************************************************/
+export const SORT_POSTS = 'SORT_POSTS'
+export function sortPosts(posts, sortedBy) {
+    return {
+        type: SORT_POSTS,
+        posts: posts,
+        sortedBy: sortedBy
     }
 }

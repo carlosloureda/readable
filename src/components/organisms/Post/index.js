@@ -29,7 +29,7 @@ const Post = withRouter(({post, layout, handlers, history}) => {
             <div>Vote Score: {post.voteScore}</div>
             <div>Coments count: {post.commentCount}</div>
             {/* <div>timestamp: {DateUtils.parseDatetime(post.timestamp)}</div> */}
-            <div>timestamp: post.timestamp</div>
+            <div>timestamp: {post.timestamp}</div>
             <hr/>
             {/* TODO: Maybe we can use names instead of the url */}
             <button onClick={() => history.push(`/post/edit/${post.id}`)}>Edit</button>
@@ -53,7 +53,7 @@ const Post = withRouter(({post, layout, handlers, history}) => {
             <div>Vote Score: {post.voteScore}</div>
             <div>Coments count: {post.commentCount}</div>
             {/* <div>timestamp: {DateUtils.parseDatetime(post.timestamp)}</div> */}
-            <div>timestamp: post.timestamp</div>
+            <div>timestamp: {post.timestamp}</div>
             <hr/>
             {/* TODO: Maybe we can use names instead of the url */}
             <button onClick={() => history.push(`/post/edit/${post.id}`)}>Edit</button>

@@ -19,10 +19,8 @@ class PostsListPageContainer extends React.Component {
   }
   componentWillMount() {
     const { posts } = this.props;
-    console.log("props: ", this.props);
     const category = this.props.match.params.category;
-    this.props.fetchPosts(category, 'date').then(() => {
-        console.log("fetching posts finished: ", this.props.posts)
+    this.props.fetchPosts(category, 'date_desc').then(() => {
         this.setState({
           loading: false
         })
