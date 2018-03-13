@@ -34,3 +34,7 @@ export const arrayToObject = (array) => {
         }
     }, {});
 }
+
+export const DateUtils = {
+    parseDatetime: (timestamp) =>  new Date(timestamp).toLocaleString()
+}

@@ -22,17 +22,12 @@ const Header = styled.header`
   z-index: 999;
 `
 
-const Hero = styled.section``
-
-const Sponsor = styled.section``
-
-const Content = styled.section`
+const Hero = styled.section`
   width: 100%;
   box-sizing: border-box;
   margin: 2rem auto;
   max-width: ${size('maxWidth')};
 `
-
 const Footer = styled.footer`
   margin-top: auto;
 `

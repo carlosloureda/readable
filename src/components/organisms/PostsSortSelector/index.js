@@ -1,18 +1,27 @@
 import React from 'react'
+import { FormControl, FormHelperText } from 'material-ui/Form';
+import { InputLabel } from 'material-ui/Input';
+import { MenuItem } from 'material-ui/Menu';
+import Select from 'material-ui/Select';
 
 const PostsSortSelector = ({sortedBy, sortOptions, onSortingSelection}) => {
   return (
-    <select
-      name="sortBy"
-      value={sortedBy}
-      onChange={(e) => onSortingSelection(e)}
-    >
-    {sortOptions && sortOptions.map(option =>
-      <option key={option.slug} value={option.slug}>
-        {option.name}
-      </option>
-    )}
-  </select>
+    <FormControl >
+      <InputLabel htmlFor="sortBy">Sorted by:</InputLabel>
+      <Select
+        // input={<Input name="age" id="age-helper" />}
+        name="sortBy"
+        value={sortedBy}
+        onChange={(e) => onSortingSelection(e)}
+      >
+        {sortOptions && sortOptions.map(option =>
+          <MenuItem key={option.slug} value={option.slug}>
+            {option.name}
+          </MenuItem>
+        )}
+      </Select>
+      {/* <FormHelperText>Sorted by</FormHelperText> */}
+    </FormControl>
   )
 }
 

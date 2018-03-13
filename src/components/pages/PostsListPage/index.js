@@ -3,22 +3,28 @@ import React from 'react'
 
 import {
   PageTemplate, Header, Footer,
-  PostsSortSelectorContainer, CategoryFetcherContainer, AddPostButton,
+  PostsSortSelectorContainer, CategoryFetcherContainer,
   PostList
 } from 'components'
 import { withRouter } from 'react-router-dom'
+import IconButton from 'material-ui/IconButton';
+import AddCircleIcon from 'material-ui-icons/AddCircle';
+
 
 const Hero = withRouter(({posts, history}) => {
   return (
     <div>
-      <h1>PostsListPage</h1>
+      {/* <h1>PostsListPage</h1> */}
       <PostsSortSelectorContainer></PostsSortSelectorContainer>
       {/* TODO: Maybe best approach is to fetch categories in CategoryFetcherContainer */}
       <CategoryFetcherContainer></CategoryFetcherContainer>
       <PostList posts={ posts }></PostList>
       {/* TODO: should we pass the event handler here or have it inside? */}
-      <AddPostButton icon={'add'} clickHandler={() => history.push('/post/new')}>
-      </AddPostButton>
+      <IconButton
+        onClick={() => history.push('/post/new')}
+        aria-label="add-post">
+        <AddCircleIcon />
+      </IconButton>
     </div>
   )
 })

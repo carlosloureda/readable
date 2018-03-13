@@ -7,6 +7,9 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 import Slide from 'material-ui/transitions/Slide';
+import Icon from 'material-ui/Icon';
+import IconButton from 'material-ui/IconButton';
+import DeleteIcon from 'material-ui-icons/Delete';
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -22,7 +25,8 @@ class ConfirmModal extends React.Component {
       };
   }
 
-  handleClickOpen = () => {
+  handleClickOpen = (e) => {
+    e.stopPropagation();
     this.setState({ open: true });
   };
 
@@ -41,10 +45,23 @@ class ConfirmModal extends React.Component {
   };
 
   render() {
-
+    const {layout} = this.props;
     return (
-      <div>
-        <Button onClick={this.handleClickOpen}>Delete</Button>
+      <span>
+        {layout && layout == 'MINIMAL_BUTTONS' &&
+          <IconButton
+            onClick={this.handleClickOpen}
+            aria-label="Delete" color="secondary"
+          >
+            <DeleteIcon />
+          </IconButton>
+        }
+        {!layout &&
+          <Button
+              variant="raised" color="secondary" className={null}>
+              Delete
+          </Button>
+        }
 
         <Dialog
           open={this.state.open}
@@ -66,12 +83,12 @@ class ConfirmModal extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               {this.props.secondaryButtonText}
             </Button>
-            <Button onClick={this.handleCloseWithAction} color="primary">
+            <Button onClick={this.handleCloseWithAction} variant="raised" color="secondary">
               {this.props.primaryButtonText}
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
+      </span>
     );
   }
 }

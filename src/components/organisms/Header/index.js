@@ -28,7 +28,7 @@ const Header = withRouter(({props, history}) => {
   return (
     <Wrapper opaque reverse {...props}>
       <InnerWrapper>
-        <h1 onClick={() => history.push('/')}>HEADER</h1>
+        <h1 onClick={() => history.push('/')}>READABLE</h1>
         {/* <IconLink to="/" icon="arc" height={100} /> */}
         {/* <PrimaryNavigation reverse /> */}
       </InnerWrapper>

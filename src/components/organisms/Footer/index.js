@@ -2,27 +2,27 @@ import React from 'react'
 import styled from 'styled-components'
 import { palette } from 'styled-theme'
 
-// import { Paragraph, Link, Icon } from 'components'
-// import { Paragraph, Link, Icon } from 'components'
+import { Icon } from 'components'
+import { Link } from 'react-router-dom'
 
 const Wrapper = styled.div`
   background-color: ${palette('grayscale', 1, true)};
-  padding: 2rem;
+  padding: 0.4rem;
 `
 
-// const Credits = styled(Paragraph)`
-//   vertical-align: center;
-//   text-align: center;
-//   margin: 0;
-// `
+const Credits = styled.div`
+  vertical-align: center;
+  text-align: center;
+  margin: 0;
+`
 
 const Footer = (props) => {
   return (
     <Wrapper {...props}>
-      {/* <Credits>
-        Made with <Icon icon="heart" /> by <Link href="https://github.com/diegohaz">Haz</Link>
-      </Credits> */}
-      <h2>FOOTER</h2>
+      { <Credits>
+        Made with <Icon icon="heart" /> for <Link to="https://www.udacity.com/">Udacity</Link>
+      </Credits>}
+      {/* <h3>Carlos Loureda Parrado</h3> */}
     </Wrapper>
   )
 }

@@ -1,6 +1,14 @@
 import React from 'react'
 import { Link} from 'react-router-dom'
 import { ConfirmModal } from 'components'
+import { ListItem, ListItemText } from 'material-ui/List';
+import Card, { CardContent, CardMedia } from 'material-ui/Card';
+import IconButton from 'material-ui/IconButton';
+import ThumbUpIcon from 'material-ui-icons/ThumbUp';
+import ThumbDownIcon from 'material-ui-icons/ThumbDown';
+import Typography from 'material-ui/Typography';
+import { DateUtils } from '../../../utils/utils';
+import ModeEditIcon from 'material-ui-icons/ModeEdit';
 
 const Comment = ({comment, handlers, layout}) => {
   const title = "Do you want to delete this comment?";
@@ -8,26 +16,41 @@ const Comment = ({comment, handlers, layout}) => {
   const primaryButtonText = "Delete";
   const secondaryButtonText = "Cancel";
   const showEditComment = (comment && comment.id) ? true : false;
-  return (
-    <div>
-      <button onClick={() => handlers.voteComment(comment.id, "upVote")}>upVote</button>
-      <button onClick={() => handlers.voteComment(comment.id, "downVote")}>downVote</button>
-      <div>Comment: {comment.body}</div>
-      <div>Author: {comment.author}</div>
-      <div>Vote Score: {comment.voteScore}</div>
-      {/* <div>timestamp: {DateUtils.parseDatetime(comment.timestamp)}</div> */}
-      <div>timestamp: {comment.timestamp}</div>
-      <hr/>
-      {/* <button onClick={() => history.push(`/comment/edit/${comment.id}`)}>Edit</button> */}
-      <button onClick={() => handlers.enableEditionMode()}>Edit</button>
+  return (<ListItem key={comment.id}>
+      <div>
+        <IconButton
+            onClick={() => handlers.voteComment(comment.id, "upVote")}
+            aria-label="upvote">
+            <ThumbUpIcon />
+        </IconButton>
+        <span>{comment.voteScore}</span>
+        <IconButton
+            onClick={() => handlers.voteComment(comment.id, "downVote")}
+            aria-label="downvote">
+            <ThumbDownIcon />
+        </IconButton>
+      </div>
+      <div>
+        <Typography variant="headline">{comment.body}</Typography>
+        <Typography variant="subheading" color="textSecondary">
+          by {comment.author},  at {DateUtils.parseDatetime(comment.timestamp)}
+        </Typography>
+      </div>
+      <IconButton
+          onClick={handlers.enableEditionMode}
+          aria-label="Edit" color="primary"
+        >
+          <ModeEditIcon />
+        </IconButton>
       <ConfirmModal
         title = {title}
         body = {body}
+        layout="MINIMAL_BUTTONS"
         primaryButtonText = {primaryButtonText}
         secondaryButtonText = {secondaryButtonText}
         onPrimaryAction={handlers.removeComment}
         />
-    </div>
+    </ListItem>
   )
 }
 

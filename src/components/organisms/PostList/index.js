@@ -1,9 +1,10 @@
 import React from 'react'
 import { PostContainer } from 'components'
+import List from 'material-ui/List';
 
 const PostList = ({posts}) => {
   return (
-    <ul>
+    <List>
       {posts && Object.keys(posts).map(postId =>
           <PostContainer
             key={postId}
@@ -11,7 +12,7 @@ const PostList = ({posts}) => {
             layout={"LIST_ITEM"}
           ></PostContainer>
       )}
-    </ul>
+    </List>
   )
 }
 

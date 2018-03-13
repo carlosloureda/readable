@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchPost, fetchComments } from '../../../actions/index'
 import {
-  PostPage
+  PostPage, LoadingPage
 } from 'components'
 
 class PostPageContainer extends React.Component {
@@ -65,7 +65,7 @@ class PostPageContainer extends React.Component {
         ></PostPage>
       )
     } else {
-      return (<p>loading in post page container</p>)
+      return (<LoadingPage />)
     }
   }
 }

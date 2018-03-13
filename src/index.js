@@ -11,6 +11,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import reducer from './reducers/index.js'
 import App from 'components/App'
 
+
 const loggerMiddleware = createLogger()
 
 const store = createStore(

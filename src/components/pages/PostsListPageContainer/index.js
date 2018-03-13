@@ -6,7 +6,7 @@ import {
 } from '../../../actions/index'
 
 import {
-  PostsListPage
+  PostsListPage, LoadingPage
 } from 'components'
 
 class PostsListPageContainer extends React.Component {
@@ -37,7 +37,7 @@ class PostsListPageContainer extends React.Component {
     }
     if (this.state.loading) {
       //TODO: Spinner of whatever
-      return (<h1>loading posts</h1>)
+      return (<LoadingPage/>)
     }
     else {
       return (

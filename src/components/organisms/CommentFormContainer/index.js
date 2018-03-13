@@ -37,6 +37,7 @@ class CommentFormContainer extends React.Component {
                 [target.name]: target.value
             }
         });
+        console.log("stae: ", this.state);
     }
 
     addComment = () => {
