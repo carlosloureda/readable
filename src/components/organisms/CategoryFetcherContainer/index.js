@@ -16,9 +16,8 @@ class CategoryFetcherContainer extends Component {
   }
 
   componentDidMount() {
-    console.log("???? props: ", this.props);
     this.props.requestCategories().then(() => {
-      console.log("fetching CATEGORIES finished: ", this.props.categories)
+      // console.log("fetching CATEGORIES finished: ", this.props.categories)
     });
   }
 

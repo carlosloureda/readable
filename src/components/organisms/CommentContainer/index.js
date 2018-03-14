@@ -16,21 +16,18 @@ class CommentContainer extends React.Component {
   }
 
   removeComment = () => {
-    console.log("delete comment");
     this.props.removeComment(this.props.comment.id).then((callback) => {
       // callback(); // closing the modal
     });
   }
 
   enableEditionMode = () => {
-    console.log("enabled edition mode");
     this.setState({
       editComment: true
     })
   }
 
   cancelEditionMode = () => {
-    console.log("disabled edition mode");
     this.setState({
       editComment: false
     })

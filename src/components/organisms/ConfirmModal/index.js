@@ -19,7 +19,6 @@ class ConfirmModal extends React.Component {
 
   constructor(props) {
       super(props)
-      console.log("props: ", props);
       this.state = {
         open: false,
       };
@@ -42,7 +41,6 @@ class ConfirmModal extends React.Component {
   }
 
   handleClose = (e) => {
-    console.log("OEOEOE");
     e.stopPropagation();
     this.setState({ open: false });
   };

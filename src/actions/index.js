@@ -22,7 +22,6 @@ function requestPosts(category) {
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 function receivePosts(category, data) {
-    console.log("JSON: ", data);
   return {
     type: RECEIVE_POSTS,
     category,
@@ -41,7 +40,6 @@ export function fetchPosts(category, sortedBy) {
         .then(data =>
             {
                 // dispatch(sortPosts(data, sortedBy));
-                // console.log("eoeoeooe: ", sortedBy);
                 data = sortPostsHelper(data, sortedBy);
                 return dispatch(receivePosts(category,  data));
             }
@@ -68,7 +66,6 @@ export function votePost(postId, option) {
     return function(dispatch) {
         return votePostApi(postId, option)
         .then(data =>{
-            console.log("Data is : ",data);
             dispatch(votePostAction(postId, option));}
         )
     }
@@ -91,7 +88,6 @@ export function requestCategories() {
     return function(dispatch) {
         return fetchAllCategories()
         .then(data =>{
-            console.log("*****************Data is : ",data);
             dispatch(requestCategoriesAction(data));}
         )
     }
@@ -115,7 +111,6 @@ function setSelectedCategory(category) {
 
  export const ADD_POST = 'ADD_POST'
 function addPostAction(post) {
-    console.log("inside addpost action : ", post);
     return {
         type: ADD_POST,
         post: post,
@@ -126,7 +121,6 @@ export function addPost(post) {
     return function(dispatch) {
         return addPostApi(post)
         .then(data =>{
-            console.log("on add post callback: ", data);
             dispatch(addPostAction(data));}
         )
     }
@@ -147,7 +141,6 @@ export function removePost(id) {
     return function(dispatch) {
         return deletePost(id)
         .then(data =>{
-            console.log("Data is : ",data);
             dispatch(removePostAction(data));}
         )
     }
@@ -169,7 +162,6 @@ export function fetchPost(postId) {
     return (dispatch) => {
         return getPostApi(postId)
         .then(data =>{
-            console.log("Data is : ",data);
             return dispatch(requestPost(data));
         })
     }
@@ -190,7 +182,6 @@ export function editPost(id, payload) {
     return function(dispatch) {
         return updatePost(id, payload)
         .then(data =>{
-            console.log("Data is : ",data);
             dispatch(editPostAction(data));}
         )
     }

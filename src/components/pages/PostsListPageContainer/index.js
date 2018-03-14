@@ -50,7 +50,6 @@ class PostsListPageContainer extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log("STATE: ", state);
   return {
       posts: state.posts.entities.posts,
       postsByCategory: state.posts.postsByCategory,

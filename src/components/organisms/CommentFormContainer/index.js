@@ -37,11 +37,9 @@ class CommentFormContainer extends React.Component {
                 [target.name]: target.value
             }
         });
-        console.log("stae: ", this.state);
     }
 
     addComment = () => {
-        // console.warn("addComment clicked");
         const comment = {
             ...this.state.comment,
             id: getUUIC(),
@@ -50,7 +48,6 @@ class CommentFormContainer extends React.Component {
             // deleted: false
         }
         this.props.addComment(comment).then(() => {
-            console.warn("add comment finished");
             if (this.props.addCommentCallback) {
                 this.props.addCommentCallback();
             }
@@ -63,7 +60,6 @@ class CommentFormContainer extends React.Component {
             body: this.state.comment.body
         }
         this.props.editComment(this.state.comment.id, payload).then(() => {
-            console.warn("edit comment finished");
             this.props.onCancelEdition();
         })
     }

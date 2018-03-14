@@ -48,7 +48,6 @@ class PostPageContainer extends React.Component {
 
     if (!this.state.fetchingComments && !this.state.fetchingPost) {
       const post = this.props.posts[postId];
-    console.warn("The comments length: ", Object.keys(this.props.comments).length);
       return (
         <PostPage
           post={post}

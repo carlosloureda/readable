@@ -20,14 +20,8 @@ import SkipNextIcon from 'material-ui-icons/SkipNext';
 import Chip from 'material-ui/Chip';
 import Divider from 'material-ui/Divider';
 
-const deleteModal = () => {
-    console.log("deleteModal clicked");
-}
 
 const Post = withRouter(({post, layout, handlers, history}) => {
-    console.log("layout is: ", layout);
-    console.log("handlers: ", handlers);
-
     const title = "Do you want to delete this post?";
     const body = "This action can't be undone. Deleting a post also deletes its comments";
     const primaryButtonText = "Delete";

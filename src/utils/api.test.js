@@ -164,7 +164,6 @@ test('get post comments Test', () => {
 //TODO:
 test('add comment to post Test', () => {
     return addCommentApi(newComment).then(comment => {
-        // console.log("add comment: ", comment);
         // expect(comment.id).toBe(newComment.id);
     });
 });

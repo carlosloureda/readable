@@ -120,7 +120,6 @@ function posts(state = defaultPostState, action) {
             }, {});
             let _posts = Object.assign({}, newPosts);
             if (action.category) {
-                console.log("asked by categories");
                 // If we asked by category we need to merge the new ones to the old ones
                 //TODO: WE update the categories only that category
                 _posts = Object.assign({}, state.entities.posts, newPosts)
@@ -251,7 +250,6 @@ function posts(state = defaultPostState, action) {
             }
         case FETCH_POST:
             // state.entities.posts[action.post.id] = action.post;
-            // console.log("state is: ", state);
             //TODO: should update also the postsByCategory
             return {
                 ...state,
@@ -268,23 +266,6 @@ function posts(state = defaultPostState, action) {
             }
         //TODO: check all this
         case EDIT_POST:
-            // let oldCategoryName = '';
-            // Object.keys(state.postsByCategory).forEach(category => {
-            //     state.postsByCategory[category].items.forEach(postId => {
-            //         if (postId == action.post.id) {
-            //             console.log("The category: ", category);
-            //             oldCategoryName = category;
-            //         }
-            //     })
-            // });
-            // // console.log("The oldCategoryName: ", oldCategoryName);
-            // let categoryChange = oldCategoryName != action.post.category;
-            // let postsByOldCategory = [];
-            // if(categoryChange) {
-            //     postsByOldCategory = state.postsByCategory[oldCategoryName].items;
-            //     postsByOldCategory.splice(postsByOldCategory.indexOf(action.post.id), 1)
-            // }
-
             _postsByCategory = state.postsByCategory;
             if (state.entities.posts[action.post.id] && state.entities.posts[action.post.id].category != action.post.category) {
                 Object.keys(_postsByCategory).forEach(category => {
@@ -406,7 +387,6 @@ function posts(state = defaultPostState, action) {
                 lastUpdated: action.receivedAt
             }
         case SORT_POSTS:
-        console.warn("we are going to sort things by ", action.sortedBy);
             const arrayPosts = objectToArray(state.entities.posts);
             const sortedPosts = sortPostsHelper(arrayPosts, action.sortedBy)
             const sortedPostsObj = arrayToObject(sortedPosts)

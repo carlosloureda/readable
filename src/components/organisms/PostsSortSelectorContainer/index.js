@@ -25,7 +25,6 @@ class PostsSortSelectorContainer extends Component {
       sortedBy: event.target.value
     }, () =>{
       //TODO: the sorted by shoule be saved on the redux
-      console.warn("!!!!!!!!!!!!!!!!!> sorted by: ", event.target.value);
       this.props.sortPosts(this.props.posts, this.state.sortedBy);
     })
   }

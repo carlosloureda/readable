@@ -24,7 +24,6 @@ class PostContainer extends React.Component {
     const handlers = {
       votePost: this.props.votePost,
       removePost: this.removePost,
-      click: () => {console.log("sadads");}
     }
     return (
       <Post

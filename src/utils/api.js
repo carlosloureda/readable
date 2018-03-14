@@ -35,7 +35,6 @@ export function fetchAllPosts () {
  * option - [String]: Either "upVote" or "downVote".
  */
 export function votePostApi(postId, option) {
-    console.log("The postId is: ", postId);
     return fetch(
         `${url}/posts/${postId}`,
         { method: 'POST', headers: HEADERS, body: JSON.stringify({'option': option}) }
@@ -50,7 +49,6 @@ export function votePostApi(postId, option) {
  * @description GET /posts/:id. Get the details of a single post.
  */
 export function getPostApi(postId) {
-    console.log("Holas");
     return fetch(
         `${url}/posts/${postId}`, { method: 'GET', headers: HEADERS }
     )

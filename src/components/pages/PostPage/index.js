@@ -11,7 +11,6 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 
 const Hero = ({post, layout, comments, showAddComment, handlers}) => {
-  console.log("on HERO, handlers: ", handlers);
   return (
     <div>
       {/* Post data */}
