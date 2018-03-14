@@ -25,7 +25,6 @@ class CommentContainer extends React.Component {
   enableEditionMode = () => {
     console.log("enabled edition mode");
     this.setState({
-      ...this.state,
       editComment: true
     })
   }
@@ -33,7 +32,6 @@ class CommentContainer extends React.Component {
   cancelEditionMode = () => {
     console.log("disabled edition mode");
     this.setState({
-      ...this.state,
       editComment: false
     })
   }

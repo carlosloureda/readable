@@ -5,11 +5,11 @@ import List from 'material-ui/List';
 const CommentsList = ({comments}) => {
   return (
     <List>
-      {comments && comments.map(comment =>
-        {
-          return (<CommentContainer key={comment.id} comment={comment}>
-          </CommentContainer>)
-        }
+      {Object.keys(comments).map(commentId =>
+        <CommentContainer
+          key={commentId}
+          comment={comments[commentId]}>
+        </CommentContainer>
       )}
     </List>
   )

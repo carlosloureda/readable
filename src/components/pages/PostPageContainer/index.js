@@ -45,21 +45,14 @@ class PostPageContainer extends React.Component {
     const handlers = {
       onToggleCommentForm: this.onToggleCommentForm
     }
-    const comments = [];
-    if (this.props.comments) {
-      Object.keys(this.props.comments).forEach(commentId => {
-        if (this.props.comments[commentId].parentId == postId ) {
-          comments.push(this.props.comments[commentId])
-        }
-      });
-    }
 
     if (!this.state.fetchingComments && !this.state.fetchingPost) {
       const post = this.props.posts[postId];
+    console.warn("The comments length: ", Object.keys(this.props.comments).length);
       return (
         <PostPage
           post={post}
-          comments={comments}
+          comments={this.props.comments}
           showAddComment={this.state.showAddComment}
           handlers={handlers}
         ></PostPage>

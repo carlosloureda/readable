@@ -380,7 +380,7 @@ function posts(state = defaultPostState, action) {
                 lastUpdated: action.receivedAt,
             }
         case REMOVE_COMMENT:
-            const commentToBeRemoved = state.entities.comments[action.commentId];
+            const commentToBeRemoved = state.entities.comments[action.comment.id];
             let _newComments = state.entities.comments;
             delete _newComments[commentToBeRemoved.id];
 

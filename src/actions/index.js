@@ -262,10 +262,10 @@ export function voteComment(commentId, option) {
  *                              DELETE COMMENT
  ******************************************************************************/
 export const REMOVE_COMMENT = 'REMOVE_COMMENT'
-function removeCommentAction(commentId) {
+function removeCommentAction(comment) {
     return {
         type: REMOVE_COMMENT,
-        commentId: commentId,
+        comment: comment,
         receivedAt: Date.now()
     }
 }
@@ -274,7 +274,7 @@ export function removeComment(commentId) {
     return function(dispatch) {
         return deleteComment(commentId)
         .then(data =>{
-            dispatch(removeCommentAction(commentId))}
+            dispatch(removeCommentAction(data))}
         )
     }
 }

@@ -21,14 +21,13 @@ class PostsSortSelectorContainer extends Component {
 
   onSortingSelection = (event) => {
     this.setState({
-      ...this.state,
+      // ...this.state,
       sortedBy: event.target.value
+    }, () =>{
+      //TODO: the sorted by shoule be saved on the redux
+      console.warn("!!!!!!!!!!!!!!!!!> sorted by: ", event.target.value);
+      this.props.sortPosts(this.props.posts, this.state.sortedBy);
     })
-    //TODO: the sorted by shoule be saved on the redux
-    // console.warn("!!!!!!!!!!!!!!!!!> sorted by: ", event.target.value);
-    this.props.sortPosts(this.props.posts, this.state.sortedBy);
-    // let path = event.target.value != 'all'? `/category/${event.target.value}`  : '/';
-    // this.props.history.push(path)
   }
 
   render() {

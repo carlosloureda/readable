@@ -6,9 +6,9 @@ export const sortPostsHelper = (posts, sortedBy) => {
         } else if (sortedBy === 'date_asc') {
             return b.timestamp - a.timestamp
         } else if (sortedBy === 'score_desc') {
-            return a.voteScore - b.voteScore
+            return a.voteScore < b.voteScore
         } else if (sortedBy === 'score_asc') {
-            return b.voteScore - a.voteScore
+            return a.voteScore > b.voteScore
         }
     })
 }
