@@ -24,7 +24,7 @@ export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 function receivePosts(category, data) {
   return {
     type: RECEIVE_POSTS,
-    category,
+    category: category,
     items: data,
     receivedAt: Date.now()
   }
@@ -98,7 +98,7 @@ export function requestCategories() {
  ******************************************************************************/
 
 export const SET_SELECTED_CATEGORY = 'SET_SELECTED_CATEGORY'
-function setSelectedCategory(category) {
+export function setSelectedCategory(category) {
     return {
         type: SET_SELECTED_CATEGORY,
         selectedCategory: category

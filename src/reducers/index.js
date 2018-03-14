@@ -79,7 +79,7 @@ import { sortPostsHelper, objectToArray, arrayToObject } from '../utils/utils';
 // }
 
 const defaultPostState = {
-    selectedCategory: null,
+    selectedCategory: 'all',
     selectedPostId: null,
     entities: {
         posts:{
@@ -154,7 +154,7 @@ function posts(state = defaultPostState, action) {
                 },
                 postsByCategory: _postsByCategory,
                 lastUpdated: action.receivedAt,
-                selectedCategory: (action.category) ? action.category : null,
+                selectedCategory: (action.category) ? action.category : 'all',
                 selectedPostId: state.selectedPostId,
             }
             return newState;
