@@ -37,13 +37,13 @@ const Post = withRouter(({post, layout, handlers, history}) => {
     if (layout && layout == "LIST_ITEM") {
         return (<ListItem key={post.id} onClick={(e) => {e.stopPropagation(); history.push(`/post/${post.id}`)}}>
             <IconButton
-                onClick={() => handlers.votePost(post.id, "upVote")}
+                onClick={(e) => {e.stopPropagation();handlers.votePost(post.id, "upVote")}}
                 aria-label="upvote">
                 <ThumbUpIcon />
             </IconButton>
             <span>{post.voteScore}</span>
             <IconButton
-                onClick={() => handlers.votePost(post.id, "downVote")}
+                onClick={(e) => {e.stopPropagation();handlers.votePost(post.id, "downVote")}}
                 aria-label="downvote">
                 <ThumbDownIcon />
             </IconButton>
@@ -68,7 +68,7 @@ const Post = withRouter(({post, layout, handlers, history}) => {
                 primaryButtonText = {primaryButtonText}
                 secondaryButtonText = {secondaryButtonText}
                 onPrimaryAction={handlers.removePost}
-            />
+                />
         </ListItem>)
     }
     return (

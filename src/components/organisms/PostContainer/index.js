@@ -13,7 +13,10 @@ class PostContainer extends React.Component {
   removePost = (callback) => {
     this.props.removePost(this.props.post.id).then(() => {
       callback(); // closing the modal
-      this.props.history.push(`/`);
+      // If we are in the detail page we want to redirect to home page
+      if (this.props.layout != "LIST_ITEM") {
+        this.props.history.push(`/`);
+      }
     });
   }
 

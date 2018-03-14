@@ -30,9 +30,10 @@ class ConfirmModal extends React.Component {
     this.setState({ open: true });
   };
 
-  handleCloseWithAction = () => {
+  handleCloseWithAction = (e) => {
     //callback for closing the modal
     //TODO: deleting ...
+    e.stopPropagation();
     this.props.onPrimaryAction(() => {
       //TODO: if we use the open false inside here we have
       // an error
@@ -40,7 +41,9 @@ class ConfirmModal extends React.Component {
     this.setState({ open: false });
   }
 
-  handleClose = () => {
+  handleClose = (e) => {
+    console.log("OEOEOE");
+    e.stopPropagation();
     this.setState({ open: false });
   };
 
@@ -52,14 +55,15 @@ class ConfirmModal extends React.Component {
           <IconButton
             onClick={this.handleClickOpen}
             aria-label="Delete" color="secondary"
-          >
+            >
             <DeleteIcon />
           </IconButton>
         }
         {!layout &&
           <Button
-              variant="raised" color="secondary" className={null}>
-              Delete
+            onClick={this.handleClickOpen}
+            variant="raised" color="secondary" className={null}>
+            Delete
           </Button>
         }
 
