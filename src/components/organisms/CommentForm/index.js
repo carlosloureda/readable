@@ -4,10 +4,10 @@ import { FormControl, FormHelperText } from 'material-ui/Form';
 import Button from 'material-ui/Button';
 
 const CommentForm = ({comment, handlers}) => {
-    const editMode = (comment && comment.body) ? true : false;
+    const editMode = (comment && comment.id) ? true : false;
     return (
         <div>
-            <h1>{editMode ? 'Edit Comment' : 'Add Comment'}</h1>
+            {editMode && <h1>Add Comment</h1>}
             <div>
                 <div>
                     <FormControl>
@@ -37,7 +37,7 @@ const CommentForm = ({comment, handlers}) => {
                 {editMode &&
                     <div>
                         <Button onClick={handlers.onCancelEdition} color="secondary">
-                            Cancel
+                            Cancel --
                         </Button>
                         {/* <Button onClick={handlers.editComment} variant="raised" color="primary"> */}
                         <Button onClick={handlers.editComment} color="primary">

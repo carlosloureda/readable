@@ -56,6 +56,7 @@ class CommentFormContainer extends React.Component {
             }
         })
     }
+
     editComment = () => {
         const payload = {
             author: this.state.comment.author,
@@ -66,6 +67,7 @@ class CommentFormContainer extends React.Component {
             this.props.onCancelEdition();
         })
     }
+
     render() {
         const handlers = {
             handleChange: this.handleChange,

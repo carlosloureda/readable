@@ -51,7 +51,7 @@ const Hero = ({post, categories, handlers}) => {
           <Input name="author" value={post.author} onChange={handlers.handleChange} />
         </FormControl>
         <FormControl>
-          {post && post.id && <Button onClick={handlers.onEditPost} color="primary">Add Post</Button>}
+          {post && post.id && <Button onClick={handlers.onEditPost} color="primary">Save Post</Button>}
           {(!post || !post.id) && <Button onClick={handlers.onAddPost} color="primary">Add Post</Button>}
         </FormControl>
     </div>
