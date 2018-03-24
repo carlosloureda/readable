@@ -10,17 +10,18 @@ import Input, { InputLabel } from 'material-ui/Input';
 import Select from 'material-ui/Select';
 import { MenuItem } from 'material-ui/Menu';
 
-const Hero = ({post, categories, handlers}) => {
-  const title = (post && post.id) ? 'Edit Post Page' : 'Add Post Page';
+const Hero = ({post, validation, categories, handlers}) => {
+  console.log("VALIDATION: ", validation);
+  const title = (post && post.id) ? '' : 'Create a new post';
   const buttonName = (post && post.id) ? 'Save Post' : 'Add Post';
   return (
     <div>
-      <h1>{title}</h1>
-        <FormControl fullWidth={true} required>
+      {/* <h1>{title}</h1> */}
+        <FormControl error={validation.title} fullWidth={true} required>
           <InputLabel htmlFor="title">Title</InputLabel>
           <Input name="title" value={post.title} onChange={handlers.handleChange} />
         </FormControl>
-        <FormControl fullWidth={true} required>
+        <FormControl error={validation.body} fullWidth={true} required>
           <InputLabel htmlFor="body">Post</InputLabel>
           <Input
               name="body" value={post.body}
@@ -31,7 +32,7 @@ const Hero = ({post, categories, handlers}) => {
           />
         </FormControl>
         {/* TODO: we can reuse the categoryFetcher */}
-        <FormControl >
+        <FormControl>
           <InputLabel htmlFor="category">Category</InputLabel>
           <Select
             name="category"
@@ -46,7 +47,7 @@ const Hero = ({post, categories, handlers}) => {
           </Select>
           {/* <FormHelperText>Category</FormHelperText> */}
         </FormControl>
-        <FormControl required fullWidth={true}>
+        <FormControl error={validation.author} required fullWidth={true}>
           <InputLabel htmlFor="author">Author</InputLabel>
           <Input name="author" value={post.author} onChange={handlers.handleChange} />
         </FormControl>
@@ -58,11 +59,11 @@ const Hero = ({post, categories, handlers}) => {
   )
 }
 
-const AddPostPage = ({post, categories, handlers}) => {
+const AddPostPage = ({post, validation, categories, handlers}) => {
   return (
     <PageTemplate
       header={<Header />}
-      hero={<Hero post={post} categories={categories} handlers={handlers}/>}
+      hero={<Hero post={post} validation={validation} categories={categories} handlers={handlers}/>}
       footer={<Footer />}
       >
     </PageTemplate>

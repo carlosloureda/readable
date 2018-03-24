@@ -3,20 +3,21 @@ import Input, { InputLabel } from 'material-ui/Input';
 import { FormControl, FormHelperText } from 'material-ui/Form';
 import Button from 'material-ui/Button';
 
-const CommentForm = ({comment, handlers}) => {
+const CommentForm = ({comment, validation, handlers}) => {
+    console.log("validation: ", validation);
     const editMode = (comment && comment.id) ? true : false;
     return (
         <div>
             {editMode && <h1>Add Comment</h1>}
             <div>
                 <div>
-                    <FormControl>
+                    <FormControl error={validation.author}>
                         <InputLabel htmlFor="author">Author</InputLabel>
                         <Input name="author" value={comment.author} onChange={handlers.handleChange} />
                     </FormControl>
                 </div>
                 <div>
-                    <FormControl>
+                    <FormControl error={validation.body}>
                         <InputLabel htmlFor="body">Comment</InputLabel>
                         <Input
                             name="body" value={comment.body}
@@ -37,7 +38,7 @@ const CommentForm = ({comment, handlers}) => {
                 {editMode &&
                     <div>
                         <Button onClick={handlers.onCancelEdition} color="secondary">
-                            Cancel --
+                            Cancel
                         </Button>
                         {/* <Button onClick={handlers.editComment} variant="raised" color="primary"> */}
                         <Button onClick={handlers.editComment} color="primary">

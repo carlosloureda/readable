@@ -17,6 +17,10 @@ class CommentFormContainer extends React.Component {
                     id: props.comment.id,
                     author: props.comment.author,
                     body: props.comment.body
+                },
+                validation: {
+                    author: false,
+                    body: false
                 }
             }
         } else {
@@ -24,6 +28,10 @@ class CommentFormContainer extends React.Component {
                 comment: {
                     author: '',
                     body: ''
+                },
+                validation: {
+                    author: false,
+                    body: false
                 }
             }
         }
@@ -32,9 +40,14 @@ class CommentFormContainer extends React.Component {
     handleChange = (event) => {
         const target = event.target;
         this.setState({
+            ...this.state,
             comment: {
                 ...this.state.comment,
                 [target.name]: target.value
+            },
+                validation: {
+                ...this.state.validation,
+                [target.name]: target.value == ''
             }
         });
     }
@@ -45,8 +58,8 @@ class CommentFormContainer extends React.Component {
             id: getUUIC(),
             timestamp: Date.now(),
             parentId: this.props.parentId
-            // deleted: false
         }
+        if (! this.validateForm() ) return;
         this.props.addComment(comment).then(() => {
             if (this.props.addCommentCallback) {
                 this.props.addCommentCallback();
@@ -59,9 +72,25 @@ class CommentFormContainer extends React.Component {
             author: this.state.comment.author,
             body: this.state.comment.body
         }
+        if (! this.validateForm() ) return;
         this.props.editComment(this.state.comment.id, payload).then(() => {
             this.props.onCancelEdition();
         })
+    }
+
+    validateForm = () => {
+        if (this.state.comment.author != "" && this.state.comment.body != ""){
+          return true;
+        } else {
+          this.setState({
+            ...this.state,
+            validation: {
+              author: this.state.comment.author == "",
+              body: this.state.comment.body == ""
+            }
+          })
+          return false;
+        }
     }
 
     render() {
@@ -74,6 +103,7 @@ class CommentFormContainer extends React.Component {
         return (
             <CommentForm
                 comment={this.state.comment}
+                validation={this.state.validation}
                 handlers={handlers}
             ></CommentForm>
         )

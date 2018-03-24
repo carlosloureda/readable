@@ -19,9 +19,15 @@ class AddPostPageContainer extends React.Component {
         body: '',
         author: '',
         category: ''
+      },
+      validation: {
+        body: false,
+        author: false,
+        title: false
       }
     }
   }
+
 
   componentWillMount() {
     this.props.requestCategories().then(() => {
@@ -55,9 +61,14 @@ class AddPostPageContainer extends React.Component {
   handleChange = (event) => {
     const target = event.target;
     this.setState({
+      ...this.state,
       post: {
         ...this.state.post,
         [target.name]: target.value
+      },
+      validation: {
+        ...this.state.validation,
+        [target.name]: target.value == ''
       }
     });
   }
@@ -71,21 +82,42 @@ class AddPostPageContainer extends React.Component {
       category: this.state.post.category,
       timestamp: Date.now()
     }
-    //TODO: validate form, show errors, show loading
+    if (! this.validateForm() ) {
+      return;
+    }
     this.props.addPost(post).then(() =>  {
       this.props.history.push(`/post/${post.id}`);
     });
   }
 
+  validateForm = () => {
+    if (this.state.post.title != "" && this.state.post.body != ""
+        && this.state.post.author != ""
+    ) {
+      return true;
+    } else {
+      this.setState({
+        ...this.state,
+        validation: {
+          title: this.state.post.title == "",
+          author: this.state.post.author == "",
+          body: this.state.post.body == ""
+        }
+      })
+      return false;
+    }
+  }
+
   onEditPost = () => {
-    //TODO: validate form, show errors, show loading
     const params = {
       title: this.state.post.title,
       body: this.state.post.body,
       author: this.state.post.author,
       category: this.state.post.category
     }
-    //TODO: validate form, show errors, show loading
+    if (! this.validateForm()) {
+      return;
+    }
     this.props.editPost(this.state.post.id, params).then(() =>  {
       this.props.history.push(`/post/${this.state.post.id}`);
     });
@@ -100,6 +132,7 @@ class AddPostPageContainer extends React.Component {
     return (
       <AddPostPage
         post = {this.state.post}
+        validation = {this.state.validation}
         categories = {this.props.categories}
         handlers = {handlers}
       ></AddPostPage>
