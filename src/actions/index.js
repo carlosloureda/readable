@@ -5,7 +5,7 @@ import {
     deletePost, getPostApi, updatePost, getPostCommentsApi,
     addCommentApi, voteCommentApi, deleteComment, updateComment
 } from '../utils/api';
-import { sortPostsHelper } from '../utils/utils';
+import { sortPostsHelper, sortHelper } from '../utils/utils';
 
 /*******************************************************************************
  *                              FECTCH POSTS
@@ -202,6 +202,7 @@ export function fetchComments(postId) {
     return function(dispatch) {
         return getPostCommentsApi(postId)
         .then(data =>{
+            data = sortHelper(data, 'timestamp', 1);
             dispatch(fetchCommentsAction(data));}
         )
     }

@@ -1,5 +1,4 @@
 export const sortPostsHelper = (posts, sortedBy) => {
-    //TODO: Add descendant - ascendant, right now descendant
     return posts.sort((a, b) => {
         if (sortedBy === 'date_desc') {
             return a.timestamp - b.timestamp
@@ -9,6 +8,16 @@ export const sortPostsHelper = (posts, sortedBy) => {
             return a.voteScore < b.voteScore
         } else if (sortedBy === 'score_asc') {
             return a.voteScore > b.voteScore
+        }
+    })
+}
+
+export const sortHelper = (arr, field, desc=1) => {
+    return arr.sort((a, b) => {
+        if (desc) {
+            return b[field] - a[field];
+        } else {
+            return a[field] - b[field];
         }
     })
 }
