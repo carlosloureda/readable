@@ -36,7 +36,6 @@ class PostsListPageContainer extends React.Component {
       )
     }
     if (this.state.loading) {
-      //TODO: Spinner of whatever
       return (<LoadingPage/>)
     }
     else {

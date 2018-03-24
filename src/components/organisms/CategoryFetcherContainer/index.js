@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { CategoryFetcher } from 'components'
 import { connect } from 'react-redux'
 import {
-  requestCategories
+  requestCategories, fetchPosts
 } from '../../../actions/index'
 import { withRouter } from 'react-router-dom'
 
@@ -11,7 +11,7 @@ class CategoryFetcherContainer extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      selectedCategory: 'all'
+      selectedCategory: this.props.selectedCategory
     }
   }
 
@@ -22,10 +22,14 @@ class CategoryFetcherContainer extends Component {
   }
 
   onCategorySelected = (event) => {
-    this.setState({
-      ...this.state,
-      selectedCategory: event.target.value
-    })
+    let category = event.target.value;
+    this.props.fetchPosts(category, 'date_desc').then(() => {
+      this.setState({
+        ...this.state,
+        selectedCategory: category
+      })
+    });
+
     let path = event.target.value != 'all'? `/category/${event.target.value}`  : '/';
     this.props.history.push(path)
   }
@@ -44,13 +48,14 @@ class CategoryFetcherContainer extends Component {
 function mapStateToProps(state) {
   return {
       categories: state.posts.categories,
-      // selectedCategory: state.posts.selectedCategory,
+      selectedCategory: state.posts.selectedCategory,
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    requestCategories: () => dispatch(requestCategories())
+    requestCategories: () => dispatch(requestCategories()),
+    fetchPosts: (data, sortedBy) => dispatch(fetchPosts(data, sortedBy))
   }
 }
 
