@@ -228,7 +228,7 @@ function posts(state = defaultPostState, action) {
             }
         case REMOVE_POST:
             const postToBeRemoved = state.entities.posts[action.post.id];
-            let _newPosts = state.entities.posts;
+            const _newPosts = JSON.parse(JSON.stringify(state.entities.posts));
             delete _newPosts[postToBeRemoved.id];
 
             const postsByCategoryToRemove = state.postsByCategory[action.post.category].items;
@@ -362,14 +362,14 @@ function posts(state = defaultPostState, action) {
             }
         case REMOVE_COMMENT:
             const commentToBeRemoved = state.entities.comments[action.comment.id];
-            let _newComments = state.entities.comments;
-            delete _newComments[commentToBeRemoved.id];
+            const newComments = JSON.parse(JSON.stringify(state.entities.comments));
+            delete newComments[commentToBeRemoved.id];
 
             return {
                 ...state,
                 entities: {
                     ...state.entities,
-                    comments: _newComments
+                    comments: newComments
                 },
                 lastUpdated: action.receivedAt
             }
