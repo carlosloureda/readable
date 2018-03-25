@@ -7,24 +7,17 @@ import {
 } from '../../../actions/index'
 
 class PostsSortSelectorContainer extends Component {
-  // date , score, desc, asc
   constructor(props){
     super(props)
-    // date_desc, date_asc
-    // score_desc, score_asc
-
     this.state = {
       sortedBy: 'date_desc',
-      // sortOrder: 'desc'
     }
   }
 
   onSortingSelection = (event) => {
     this.setState({
-      // ...this.state,
       sortedBy: event.target.value
     }, () =>{
-      //TODO: the sorted by shoule be saved on the redux
       this.props.sortPosts(this.props.posts, this.state.sortedBy);
     })
   }
@@ -38,6 +31,7 @@ class PostsSortSelectorContainer extends Component {
     ]
     return (
       <PostsSortSelector
+        classes={this.props.classes}
         sortedBy={this.state.sortedBy}
         sortOptions={sortOptions}
         onSortingSelection={this.onSortingSelection}

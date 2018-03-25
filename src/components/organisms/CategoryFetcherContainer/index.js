@@ -37,6 +37,7 @@ class CategoryFetcherContainer extends Component {
   render() {
     return (
       <CategoryFetcher
+        classes = {this.props.classes}
         categories = {this.props.categories}
         selectedCategory = {this.state.selectedCategory}
         onCategorySelected = {this.onCategorySelected}

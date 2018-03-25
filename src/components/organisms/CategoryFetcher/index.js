@@ -4,12 +4,15 @@ import { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import Select from 'material-ui/Select';
 
-const CategoryFetcher = ({ categories, selectedCategory, onCategorySelected }) => {
+const CategoryFetcher = ({ classes, categories, selectedCategory, onCategorySelected }) => {
   return (
     <FormControl >
-      <InputLabel htmlFor="category">Category:</InputLabel>
+      <InputLabel
+         className={classes.sortSelectorLabel}
+        htmlFor="category">Category:
+      </InputLabel>
       <Select
-        // input={<Input name="age" id="age-helper" />}
+        className={classes.sortSelectorInput}
         name="category"
         value={selectedCategory ? selectedCategory : 'all'}
         onChange={(e) => onCategorySelected(e)}
@@ -21,7 +24,6 @@ const CategoryFetcher = ({ categories, selectedCategory, onCategorySelected }) =
           </MenuItem>
         )}
       </Select>
-      {/* <FormHelperText>Sorted by</FormHelperText> */}
     </FormControl>
   )
 }

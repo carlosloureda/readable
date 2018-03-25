@@ -8,7 +8,33 @@ import {
 import {
   PostsListPage, LoadingPage
 } from 'components'
-
+// https://material-ui-next.com/customization/css-in-js/
+import { withRouter } from 'react-router-dom'
+import { withStyles } from 'material-ui/styles';
+const styles = {
+  justifyRight: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    minHeight: 80,
+    flex: 1,
+    marginRight: 50,
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'row wrap',
+    padding: 20,
+    width: '100%'
+  },
+  sortSelector: {
+    paddingRight: '50px',
+  },
+  sortSelectorLabel: {
+    fontSize: '1.5em'
+  },
+  sortSelectorInput: {
+    fontSize: '2.0em'
+  }
+};
 class PostsListPageContainer extends React.Component {
   constructor(props) {
     super(props)
@@ -42,6 +68,7 @@ class PostsListPageContainer extends React.Component {
       return (
         <PostsListPage
           posts={posts}
+          classes={this.props.classes}
         ></PostsListPage>
       )
     }
@@ -61,4 +88,5 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostsListPageContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(
+  withStyles(styles)(PostsListPageContainer)))

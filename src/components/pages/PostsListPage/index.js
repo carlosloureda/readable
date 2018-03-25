@@ -11,20 +11,23 @@ import IconButton from 'material-ui/IconButton';
 import AddCircleIcon from 'material-ui-icons/AddCircle';
 
 
-const Hero = withRouter(({posts, history}) => {
+const Hero = withRouter(({posts, classes, history}) => {
   return (
     <div>
-      {/* <h1>PostsListPage</h1> */}
-      <PostsSortSelectorContainer></PostsSortSelectorContainer>
-      {/* TODO: Maybe best approach is to fetch categories in CategoryFetcherContainer */}
-      <CategoryFetcherContainer></CategoryFetcherContainer>
+      <div className={classes.container}>
+        <PostsSortSelectorContainer classes={classes}></PostsSortSelectorContainer>
+        <CategoryFetcherContainer classes={classes}></CategoryFetcherContainer>
+        <div
+            className={classes.justifyRight}
+        >
+          <IconButton
+            onClick={() => history.push('/post/new')}
+            aria-label="add-post">
+            <AddCircleIcon color="primary" style={{ fontSize: 80 }} />
+          </IconButton>
+        </div>
+      </div>
       <PostList posts={ posts }></PostList>
-      {/* TODO: should we pass the event handler here or have it inside? */}
-      <IconButton
-        onClick={() => history.push('/post/new')}
-        aria-label="add-post">
-        <AddCircleIcon />
-      </IconButton>
     </div>
   )
 })
@@ -32,17 +35,17 @@ const Hero = withRouter(({posts, history}) => {
 /**
  * Main page for all posts and posts by categories
  */
-const PostsListPage = ({posts, categories}) => {
+
+const PostsListPage = ({posts, classes, categories}) => {
+  console.log("This classes: ", classes);
   return (
     <PageTemplate
       header={<Header />}
-      hero={<Hero posts={posts}/>}
+      hero={<Hero posts={posts} classes={classes}/>}
       footer={<Footer />}
       >
-
-      {/* <FeatureList /> */}
     </PageTemplate>
   )
 }
 
-export default PostsListPage
+export default PostsListPage;

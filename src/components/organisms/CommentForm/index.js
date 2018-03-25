@@ -8,16 +8,9 @@ const CommentForm = ({comment, validation, handlers}) => {
     const editMode = (comment && comment.id) ? true : false;
     return (
         <div>
-            {editMode && <h1>Add Comment</h1>}
             <div>
                 <div>
-                    <FormControl error={validation.author}>
-                        <InputLabel htmlFor="author">Author</InputLabel>
-                        <Input name="author" value={comment.author} onChange={handlers.handleChange} />
-                    </FormControl>
-                </div>
-                <div>
-                    <FormControl error={validation.body}>
+                    <FormControl fullWidth={true} error={validation.body}>
                         <InputLabel htmlFor="body">Comment</InputLabel>
                         <Input
                             name="body" value={comment.body}
@@ -26,6 +19,12 @@ const CommentForm = ({comment, validation, handlers}) => {
                             rowsMax={4}
                             onChange={handlers.handleChange}
                         />
+                    </FormControl>
+                </div>
+                <div>
+                    <FormControl error={validation.author}>
+                        <InputLabel htmlFor="author">Author</InputLabel>
+                        <Input name="author" value={comment.author} onChange={handlers.handleChange} />
                     </FormControl>
                 </div>
             </div>

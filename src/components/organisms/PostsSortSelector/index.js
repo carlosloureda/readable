@@ -4,12 +4,15 @@ import { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import Select from 'material-ui/Select';
 
-const PostsSortSelector = ({sortedBy, sortOptions, onSortingSelection}) => {
+const PostsSortSelector = ({classes, sortedBy, sortOptions, onSortingSelection}) => {
   return (
-    <FormControl >
-      <InputLabel htmlFor="sortBy">Sorted by:</InputLabel>
+    <FormControl className={classes.sortSelector}>
+      <InputLabel
+        className={classes.sortSelectorLabel}
+        htmlFor="sortBy">Sorted by:
+      </InputLabel>
       <Select
-        // input={<Input name="age" id="age-helper" />}
+        className={classes.sortSelectorInput}
         name="sortBy"
         value={sortedBy}
         onChange={(e) => onSortingSelection(e)}
@@ -20,7 +23,6 @@ const PostsSortSelector = ({sortedBy, sortOptions, onSortingSelection}) => {
           </MenuItem>
         )}
       </Select>
-      {/* <FormHelperText>Sorted by</FormHelperText> */}
     </FormControl>
   )
 }

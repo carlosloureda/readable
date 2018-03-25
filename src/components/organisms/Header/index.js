@@ -2,8 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { size } from 'styled-theme'
 import { withRouter } from 'react-router-dom'
-// import { Block } from 'components'
-// import { IconLink, PrimaryNavigation, Block } from 'components'
 
 const Wrapper = styled.div`
   display: flex;
@@ -29,8 +27,6 @@ const Header = withRouter(({props, history}) => {
     <Wrapper opaque reverse {...props}>
       <InnerWrapper>
         <h1 onClick={() => history.push('/')}>READABLE</h1>
-        {/* <IconLink to="/" icon="arc" height={100} /> */}
-        {/* <PrimaryNavigation reverse /> */}
       </InnerWrapper>
     </Wrapper>
   )

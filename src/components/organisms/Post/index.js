@@ -19,9 +19,9 @@ import PlayArrowIcon from 'material-ui-icons/PlayArrow';
 import SkipNextIcon from 'material-ui-icons/SkipNext';
 import Chip from 'material-ui/Chip';
 import Divider from 'material-ui/Divider';
+import Grid from 'material-ui/Grid';
 
-
-const Post = withRouter(({post, layout, handlers, history}) => {
+const Post = withRouter(({post, layout, handlers, classes, history}) => {
     const title = "Do you want to delete this post?";
     const body = "This action can't be undone. Deleting a post also deletes its comments";
     const primaryButtonText = "Delete";
@@ -29,27 +29,47 @@ const Post = withRouter(({post, layout, handlers, history}) => {
 
     //TODO: Think on how we can put this on a constat and export it
     if (layout && layout == "LIST_ITEM") {
-        return (<ListItem key={post.id} onClick={(e) => {e.stopPropagation(); history.push(`/post/${post.id}`)}}>
-            <IconButton
-                onClick={(e) => {e.stopPropagation();handlers.votePost(post.id, "upVote")}}
-                aria-label="upvote">
-                <ThumbUpIcon />
-            </IconButton>
-            <span>{post.voteScore}</span>
-            <IconButton
-                onClick={(e) => {e.stopPropagation();handlers.votePost(post.id, "downVote")}}
-                aria-label="downvote">
-                <ThumbDownIcon />
-            </IconButton>
-            <ListItemText primary={post.author} secondary={DateUtils.parseDatetime(post.timestamp)} />
-            <ListItemText primary={post.title} />
-            <ListItemText secondary={post.category} />
-            {post.commentCount > 0 &&
-                <IconButton>
-                    <CommentIcon />
-                    {post.commentCount}
+        return (
+        <ListItem
+            key={post.id}
+            // className={classes.container}
+            onClick={(e) => {e.stopPropagation(); history.push(`/post/${post.id}`)}}
+        >
+            <div className={classes.upVotePostWrapper}>
+                <IconButton
+                    onClick={(e) => {e.stopPropagation();handlers.votePost(post.id, "upVote")}}
+                    aria-label="upvote">
+                    <ThumbUpIcon style={{ fontSize: 40, color: 'green' }} />
                 </IconButton>
-            }
+                <div style={{ fontSize: '1.5em' }}>
+                    {post.voteScore}
+                </div>
+                <IconButton
+                    onClick={(e) => {e.stopPropagation();handlers.votePost(post.id, "downVote")}}
+                    aria-label="downvote">
+                    <ThumbDownIcon style={{ fontSize: 40, color: 'red' }} />
+                </IconButton>
+            </div>
+            <Grid
+                style={{ height: 100 }}
+                container spacing={8}
+            >
+                <Grid item xs={12}>
+                    <ListItemText secondary={post.category} />
+                </Grid>
+                <Grid item xs={12}>
+                    <div className={classes.postTitle}> {post.title} </div>
+                </Grid>
+                <Grid item xs={12}>
+                    <ListItemText secondary={'by ' + post.author + ' at ' + DateUtils.parseDatetime(post.timestamp)} />
+                     {post.commentCount > 0 &&
+                        <IconButton>
+                            {post.commentCount}
+                            <CommentIcon />
+                        </IconButton>
+                    }
+                </Grid>
+            </Grid>
             {/* TODO: Maybe we can use names instead of the url */}
             <Button
                 onClick={(e) => {e.stopPropagation(); history.push(`/post/edit/${post.id}`)}}
@@ -66,62 +86,57 @@ const Post = withRouter(({post, layout, handlers, history}) => {
         </ListItem>)
     }
     return (
-        <Card >
-            <div>
-                <Chip label={post.category} />
-            </div>
-            <div >
-                <CardContent >
-                    <Typography variant="subheading" color="textSecondary">
-                        by {post.author},  at {DateUtils.parseDatetime(post.timestamp)}
-                        {/* <ListItemText primary={post.author} secondary={DateUtils.parseDatetime(post.timestamp)} /> */}
-                    </Typography>
-                    <Typography variant="subheading" color="textSecondary">
-                        {post.title}
-                    </Typography>
-                    <Divider />
-                    <Typography variant="headline">{post.body}</Typography>
-                </CardContent>
-                <div >
-                    <IconButton
-                        onClick={() => handlers.votePost(post.id, "upVote")}
-                        aria-label="upvote">
-                        <ThumbUpIcon />
-                    </IconButton>
-                    <span>{post.voteScore}</span>
-                    <IconButton
-                        onClick={() => handlers.votePost(post.id, "downVote")}
-                        aria-label="downvote">
-                        <ThumbDownIcon />
-                    </IconButton>
+<div>
+        <div>
+            <div className={classes.container}>
+                <div className={classes.postHeaderVoteButtons}>
+                    <div className={classes.upVotePostWrapper}>
+                        <IconButton
+                            onClick={(e) => {e.stopPropagation();handlers.votePost(post.id, "upVote")}}
+                            aria-label="upvote">
+                            <ThumbUpIcon style={{ fontSize: 40, color: 'green' }} />
+                        </IconButton>
+                        <div style={{ fontSize: '1.5em' }}>
+                            {post.voteScore}
+                        </div>
+                        <IconButton
+                            onClick={(e) => {e.stopPropagation();handlers.votePost(post.id, "downVote")}}
+                            aria-label="downvote">
+                            <ThumbDownIcon style={{ fontSize: 40, color: 'red' }} />
+                        </IconButton>
+                    </div>
+                </div>
+                <div className={classes.postHeaderTitle} >
+                    <div className={classes.categoryText} >
+                        <Chip label={post.category} />
+                    </div>
+                    <div style={{ fontSize: '3em' }} >{post.title}</div>
+                    <div style={{ fontSize: '1.5em' }} >
+                        {post.body}
+                    </div>
+                    <div className={classes.categoryText}>
+                        {'by ' + post.author + ' at ' + DateUtils.parseDatetime(post.timestamp)}
+                    </div>
+                </div>
+                <div>
+                    {/* TODO: Maybe we can use names instead of the url */}
+                    <Button
+                        onClick={(e) => {e.stopPropagation(); history.push(`/post/edit/${post.id}`)}}
+                        variant="raised" color="primary" className={null}>
+                        Edit
+                    </Button>
+                    <ConfirmModal
+                        title = {title}
+                        body = {body}
+                        primaryButtonText = {primaryButtonText}
+                        secondaryButtonText = {secondaryButtonText}
+                        onPrimaryAction={handlers.removePost}
+                    />
                 </div>
             </div>
-            {/* <CardMedia
-                image="/static/images/cropped-frog.jpg"
-                title="Live from space album cover"
-            /> */}
-                {post.commentCount > 0 &&
-                <IconButton>
-                    {post.commentCount}
-                    <CommentIcon />
-                </IconButton>
-            }
-            <div>
-                {/* TODO: Maybe we can use names instead of the url */}
-                <Button
-                    onClick={(e) => {e.stopPropagation(); history.push(`/post/edit/${post.id}`)}}
-                    variant="raised" color="primary" className={null}>
-                    Edit
-                </Button>
-                <ConfirmModal
-                    title = {title}
-                    body = {body}
-                    primaryButtonText = {primaryButtonText}
-                    secondaryButtonText = {secondaryButtonText}
-                    onPrimaryAction={handlers.removePost}
-                />
-            </div>
-        </Card>
+        </div>
+
+</div>
     )
 })
 
