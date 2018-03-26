@@ -117,6 +117,9 @@ const Post = withRouter(({post, layout, handlers, classes, history}) => {
                     <div className={classes.categoryText}>
                         {'by ' + post.author + ' at ' + DateUtils.parseDatetime(post.timestamp)}
                     </div>
+                    <div className={classes.categoryText}>
+                        {post.commentCount} comments
+                    </div>
                 </div>
                 <div>
                     {/* TODO: Maybe we can use names instead of the url */}
