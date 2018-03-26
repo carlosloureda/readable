@@ -10,7 +10,6 @@ import { withRouter } from 'react-router-dom'
 import IconButton from 'material-ui/IconButton';
 import AddCircleIcon from 'material-ui-icons/AddCircle';
 
-
 const Hero = withRouter(({posts, classes, history}) => {
   return (
     <div>

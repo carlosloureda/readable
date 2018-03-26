@@ -25,7 +25,7 @@ const App = () => {
         <Route path="/category/:category" component={PostsListPageContainer} exact />
         <Route path="/post/new" component={AddPostPageContainer} />
         <Route path="/post/edit/:postId" component={AddPostPageContainer} />
-        <Route path="/post/:postId" component={PostPageContainer} />
+        <Route path="/:category/:postId" component={PostPageContainer} />
       </Switch>
     </ThemeProvider>
   )

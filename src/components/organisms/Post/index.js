@@ -33,7 +33,7 @@ const Post = withRouter(({post, layout, handlers, classes, history}) => {
         <ListItem
             key={post.id}
             // className={classes.container}
-            onClick={(e) => {e.stopPropagation(); history.push(`/post/${post.id}`)}}
+            onClick={(e) => {e.stopPropagation(); history.push(`/${post.category}/${post.id}`)}}
         >
             <div className={classes.upVotePostWrapper}>
                 <IconButton

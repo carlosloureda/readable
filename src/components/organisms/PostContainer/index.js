@@ -4,6 +4,7 @@ import { votePost, removePost, fetchPost, fetchPosts } from '../../../actions/in
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from 'material-ui/styles';
+
 const styles = {
   container: {
     display: 'flex',
@@ -45,6 +46,7 @@ const styles = {
     lineHeight: '1.46429em'
   }
 };
+
 class PostContainer extends React.Component {
 
   constructor (props) {
