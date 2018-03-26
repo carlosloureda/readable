@@ -17,8 +17,13 @@ class PostPageContainer extends React.Component {
 
   }
   componentWillMount() {
+    console.log("component will mount");
     const postId = this.props.match.params.postId;
-    this.props.fetchPost(postId).then(() => {
+    this.props.fetchPost(postId).then((post) => {
+      if (!this.props.posts || !this.props.posts[postId]) {
+        console.log("should redirect to 404 page");
+        this.props.history.push(`/404`);
+      }
       this.setState({
         ...this.state,
         fetchingPost: false

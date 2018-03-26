@@ -3,7 +3,10 @@ import { Switch, Route } from 'react-router-dom'
 import { injectGlobal, ThemeProvider } from 'styled-components'
 
 import { AddPostPage } from 'components'
-import { PostsListPageContainer, PostPageContainer, AddPostPageContainer } from 'components'
+import {
+  PostsListPageContainer, PostPageContainer,
+  AddPostPageContainer, Page404
+} from 'components'
 
 // import createHistory from "history/createBrowserHistory"
 // https://github.com/diegohaz/arc/wiki/Styling
@@ -26,6 +29,8 @@ const App = () => {
         <Route path="/post/new" component={AddPostPageContainer} />
         <Route path="/post/edit/:postId" component={AddPostPageContainer} />
         <Route path="/:category/:postId" component={PostPageContainer} />
+        <Route path="/404" component={Page404} />
+        {/* <Route path='*' exact={true} component={GenericNotFound} /> */}
       </Switch>
     </ThemeProvider>
   )
