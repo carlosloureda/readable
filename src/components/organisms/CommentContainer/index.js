@@ -21,15 +21,9 @@ class CommentContainer extends React.Component {
     });
   }
 
-  enableEditionMode = () => {
+  toggleEditMode = () => {
     this.setState({
-      editComment: true
-    })
-  }
-
-  cancelEditionMode = () => {
-    this.setState({
-      editComment: false
+      editComment: !this.state.editComment
     })
   }
 
@@ -37,7 +31,7 @@ class CommentContainer extends React.Component {
     const handlers = {
       voteComment: this.props.voteComment,
       removeComment: this.removeComment,
-      enableEditionMode: this.enableEditionMode
+      toggleEditMode: this.toggleEditMode
     }
     if (this.state.editComment) {
       return (
@@ -45,7 +39,7 @@ class CommentContainer extends React.Component {
           comment={this.props.comment}
           parentId={this.props.comment.parentId}
           addCommentCallback={handlers.onToggleCommentForm}
-          onCancelEdition={this.cancelEditionMode}
+          onCancelEdition={this.toggleEditMode}
         ></CommentFormContainer>
       )
     } else {

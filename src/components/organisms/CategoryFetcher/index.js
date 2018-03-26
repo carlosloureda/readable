@@ -18,11 +18,14 @@ const CategoryFetcher = ({ classes, categories, selectedCategory, onCategorySele
         onChange={(e) => onCategorySelected(e)}
       >
         <MenuItem value='all'>All</MenuItem>
-        {categories && categories.map(category =>
-          <MenuItem key={category.name} value={category.name}>
-            {category.name}
-          </MenuItem>
-        )}
+        {categories && categories.map((category) => {
+          const { name } = category
+          return (
+            <MenuItem key={name} value={name}>
+              {name}
+            </MenuItem>
+          )
+        })}
       </Select>
     </FormControl>
   )

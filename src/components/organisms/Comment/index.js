@@ -37,7 +37,7 @@ const Comment = ({comment, handlers, layout}) => {
         </Typography>
       </div>
       <IconButton
-          onClick={handlers.enableEditionMode}
+          onClick={handlers.toggleEditMode}
           aria-label="Edit" color="primary"
         >
           <ModeEditIcon />

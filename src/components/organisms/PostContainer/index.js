@@ -62,15 +62,17 @@ class PostContainer extends React.Component {
   }
 
   render() {
+    const { props, removePost } = this;
+    const { votePost, classes, post, layout } = props;
     const handlers = {
-      votePost: this.props.votePost,
-      removePost: this.removePost,
+      votePost,
+      removePost,
     }
     return (
       <Post
-        classes={this.props.classes}
-        post={this.props.post}
-        layout={this.props.layout}
+        classes={classes}
+        post={props.post}
+        layout={layout}
         handlers={handlers}
       ></Post>
     )

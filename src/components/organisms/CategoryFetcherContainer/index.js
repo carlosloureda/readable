@@ -22,7 +22,7 @@ class CategoryFetcherContainer extends Component {
   }
 
   onCategorySelected = (event) => {
-    let category = event.target.value;
+    const category = event.target.value;
     this.props.fetchPosts(category, 'date_desc').then(() => {
       this.setState({
         ...this.state,

@@ -9,16 +9,13 @@ const styles = {
   },
 };
 
-function LinearLoader(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <LinearProgress />
-      <br />
-      <LinearProgress color="secondary" />
-    </div>
-  );
-}
+const LinearLoader = ( { classes : { root } }) => (
+  <div className={root}>
+    <LinearProgress />
+    <br />
+    <LinearProgress color="secondary" />
+  </div>
+)
 
 LinearLoader.propTypes = {
   classes: PropTypes.object.isRequired,

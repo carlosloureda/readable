@@ -11,28 +11,15 @@ class CommentFormContainer extends React.Component {
     constructor (props) {
         super(props)
         // Edit form
-        if (props.comment) {
-            this.state = {
-                comment: {
-                    id: props.comment.id,
-                    author: props.comment.author,
-                    body: props.comment.body
-                },
-                validation: {
-                    author: false,
-                    body: false
-                }
-            }
-        } else {
-            this.state = {
-                comment: {
-                    author: '',
-                    body: ''
-                },
-                validation: {
-                    author: false,
-                    body: false
-                }
+        this.state = {
+            comment: {
+                id: (props.comment) ? props.comment.id : '',
+                author: (props.comment) ? props.comment.author : '',
+                body: (props.comment) ? props.comment.body : ''
+            },
+            validation: {
+                author: false,
+                body: false
             }
         }
     }
@@ -79,7 +66,7 @@ class CommentFormContainer extends React.Component {
     }
 
     validateForm = () => {
-        if (this.state.comment.author != "" && this.state.comment.body != ""){
+        if (this.state.comment.author && this.state.comment.body){
           return true;
         } else {
           this.setState({
