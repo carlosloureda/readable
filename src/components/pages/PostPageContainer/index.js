@@ -30,6 +30,7 @@ class PostPageContainer extends React.Component {
       })
     });
     this.props.fetchComments(postId).then(() => {
+      console.log("Fetched comments for postId: ", postId);
       this.setState({
         ...this.state,
         fetchingComments: false
@@ -51,12 +52,21 @@ class PostPageContainer extends React.Component {
       onToggleCommentForm: this.onToggleCommentForm
     }
 
+    const commentsForPost = {}
+    const post = this.props.posts[postId];
+    const {comments} = this.props;
+
+    Object.keys(comments).forEach(function(commentId) {
+      if (comments[commentId].parentId == post.id) {
+        commentsForPost[commentId] = comments[commentId];
+      }
+    });
+
     if (!this.state.fetchingComments && !this.state.fetchingPost) {
-      const post = this.props.posts[postId];
       return (
         <PostPage
           post={post}
-          comments={this.props.comments}
+          comments={commentsForPost}
           showAddComment={this.state.showAddComment}
           handlers={handlers}
         ></PostPage>

@@ -86,7 +86,7 @@ class AddPostPageContainer extends React.Component {
       return;
     }
     this.props.addPost(post).then(() =>  {
-      this.props.history.push(`/post/${post.id}`);
+      this.props.history.push(`/${this.state.post.category}/${post.id}`);
     });
   }
 
@@ -119,7 +119,7 @@ class AddPostPageContainer extends React.Component {
       return;
     }
     this.props.editPost(this.state.post.id, params).then(() =>  {
-      this.props.history.push(`/post/${this.state.post.id}`);
+      this.props.history.push(`/${this.state.post.category}/${this.state.post.id}`);
     });
   }
 
